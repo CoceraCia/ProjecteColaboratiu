@@ -1,10 +1,13 @@
 package view;
 
+import java.awt.Color;
 import static utils.DataValidation.calculateNifLetter;
 import static utils.DataValidation.isLetter;
 import static utils.DataValidation.isNumber;
 
 import java.awt.dnd.DropTarget;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -33,8 +36,54 @@ public class Update extends javax.swing.JDialog {
         DropTarget dropTarget = new DropTarget(photo, d);
         read.setVisible(false);
         update.setEnabled(false);
+        
+        nif.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) {
+                if (nif.getText().equals("Enter NIF number, letter is calculated (e.g., 12345678)")) {
+                    nif.setText("");
+                    nif.setForeground(Color.BLACK);
+                }
+            }
+            public void focusLost(FocusEvent e) {
+                if (nif.getText().isEmpty()) {
+                    nif.setForeground(Color.GRAY);
+                    nif.setText("Enter NIF number, letter is calculated (e.g., 12345678)");
+                }
+            }
+        });
+        name.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) {
+                if (name.getText().equals("Enter full name")) {
+                    name.setText("");
+                    name.setForeground(Color.BLACK);
+                }
+            }
+            public void focusLost(FocusEvent e) {
+                if (name.getText().isEmpty()) {
+                    name.setForeground(Color.GRAY);
+                    name.setText("Enter full name");
+                }
+            }
+        });
+        update.requestFocusInWindow();
+        addFocusName(name);
+        addFocusNif(nif);
     }
-
+    
+    public void addFocusNif(JTextField nif) {
+        if (!nif.hasFocus() && nif.getText().isEmpty()) {
+            nif.setText("Enter NIF number, letter is calculated (e.g., 12345678)");
+            nif.setForeground(Color.GRAY);
+        }
+    }
+    public void addFocusName(JTextField name) {
+        if (!name.hasFocus() && nif.getText().isEmpty()) {
+            name.setText("Enter full name");
+            name.setForeground(Color.GRAY);
+        }
+    }
+    
+    
     public JButton getUpdate() {
         return update;
     }

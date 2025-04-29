@@ -5,6 +5,9 @@
  */
 package view;
 
+import java.awt.Color;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import static utils.DataValidation.calculateNifLetter;
 import static utils.DataValidation.isNumber;
 
@@ -29,6 +32,30 @@ public class Delete extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
+        
+        nif.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) {
+                if (nif.getText().equals("Enter NIF number, letter is calculated (e.g., 12345678)")) {
+                    nif.setText("");
+                    nif.setForeground(Color.BLACK);
+                }
+            }
+            public void focusLost(FocusEvent e) {
+                if (nif.getText().isEmpty()) {
+                    nif.setForeground(Color.GRAY);
+                    nif.setText("Enter NIF number, letter is calculated (e.g., 12345678)");
+                }
+            }
+        });
+        delete.requestFocusInWindow();
+        addFocusNif(nif);
+    }
+    
+    public void addFocusNif(JTextField nif) {
+        if (!nif.hasFocus() && nif.getText().isEmpty()) {
+            nif.setText("Enter NIF number, letter is calculated (e.g., 12345678)");
+            nif.setForeground(Color.GRAY);
+        }
     }
 
     public JButton getDelete() {

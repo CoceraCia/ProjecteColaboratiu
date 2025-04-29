@@ -1,10 +1,13 @@
 package view;
 
+import java.awt.Color;
 import static utils.DataValidation.calculateNifLetter;
 import static utils.DataValidation.isLetter;
 import static utils.DataValidation.isNumber;
 
 import java.awt.dnd.DropTarget;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -32,8 +35,53 @@ public class Insert extends javax.swing.JDialog {
         DropPhotoListener d = new DropPhotoListener(photo, this);
         DropTarget dropTarget = new DropTarget(photo, d);
         insert.setEnabled(false);
+        
+        nif.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) {
+                if (nif.getText().equals("Enter NIF number, letter is calculated (e.g., 12345678)")) {
+                    nif.setText("");
+                    nif.setForeground(Color.BLACK);
+                }
+            }
+            public void focusLost(FocusEvent e) {
+                if (nif.getText().isEmpty()) {
+                    nif.setForeground(Color.GRAY);
+                    nif.setText("Enter NIF number, letter is calculated (e.g., 12345678)");
+                }
+            }
+        });
+        name.addFocusListener(new FocusAdapter() {
+            public void focusGained(FocusEvent e) {
+                if (name.getText().equals("Enter full name")) {
+                    name.setText("");
+                    name.setForeground(Color.BLACK);
+                }
+            }
+            public void focusLost(FocusEvent e) {
+                if (name.getText().isEmpty()) {
+                    name.setForeground(Color.GRAY);
+                    name.setText("Enter full name");
+                }
+            }
+        });
+        insert.requestFocusInWindow();
+        addFocusName(name);
+        addFocusNif(nif);
     }
-
+    
+    public void addFocusNif(JTextField nif) {
+        if (!nif.hasFocus() && nif.getText().isEmpty()) {
+            nif.setText("Enter NIF number, letter is calculated (e.g., 12345678)");
+            nif.setForeground(Color.GRAY);
+        }
+    }
+    public void addFocusName(JTextField name) {
+        if (!name.hasFocus() && nif.getText().isEmpty()) {
+            name.setText("Enter full name");
+            name.setForeground(Color.GRAY);
+        }
+    }
+    
     public JButton getReset() {
         return reset;
     }
@@ -189,8 +237,10 @@ public class Insert extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(24, 12, 12, 12);
         getContentPane().add(jLabel5, gridBagConstraints);
 
+        nif.setToolTipText("");
         nif.setMaximumSize(new java.awt.Dimension(400, 22));
         nif.setMinimumSize(new java.awt.Dimension(400, 22));
+        nif.setName(""); // NOI18N
         nif.setPreferredSize(new java.awt.Dimension(400, 22));
         nif.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -326,7 +376,7 @@ public class Insert extends javax.swing.JDialog {
     }//GEN-LAST:event_nifKeyPressed
 
     private void nifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nifActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_nifActionPerformed
 
     private void insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertActionPerformed
