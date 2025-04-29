@@ -37,6 +37,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.jdatepicker.DateModel;
+import utils.DataValidation;
 
 /**
  * This class starts the visual part of the application and programs and manages
@@ -119,24 +120,12 @@ public class ControllerImplementation implements IController, ActionListener {
         String daoSelected = ((javax.swing.JCheckBox) (dSS.getAccept()[1])).getText();
         dSS.dispose();
         switch (daoSelected) {
-            case "ArrayList":
-                dao = new DAOArrayList();
-                break;
-            case "HashMap":
-                dao = new DAOHashMap();
-                break;
-            case "File":
-                setupFileStorage();
-                break;
-            case "File (Serialization)":
-                setupFileSerialization();
-                break;
-            case "SQL - Database":
-                setupSQLDatabase();
-                break;
-            case "JPA - Database":
-                setupJPADatabase();
-                break;
+            case DataValidation.ARRAYLIST -> dao = new DAOArrayList();
+            case DataValidation.HASHMAP -> dao = new DAOHashMap();
+            case DataValidation.FILE -> setupFileStorage();
+            case DataValidation.FILE_SERIALIZATION -> setupFileSerialization();
+            case DataValidation.SQL_DATABASE -> setupSQLDatabase();
+            case DataValidation.JPA_DATABASE -> setupJPADatabase();
         }
         setupMenu();
     }
