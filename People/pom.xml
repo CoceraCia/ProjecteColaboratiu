@@ -51,6 +51,11 @@
 			<version>5.9.3</version>
 			<scope>test</scope>
 		</dependency>
+                <dependency>
+                    <groupId>org.netbeans</groupId>
+                    <artifactId>org-netbeans-libs-awtextra</artifactId>
+                    <version>REPLACE_WITH_VERSION</version>
+                </dependency>
 	</dependencies>
 	<build>
     <plugins>
