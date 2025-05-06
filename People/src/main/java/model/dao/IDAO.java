@@ -63,4 +63,10 @@ public interface IDAO {
      * @throws java.lang.Exception
      */
     public abstract void deleteAll () throws Exception;
+    
+   /**
+    * This function exports the data into a CSV file
+    * @throws Exception 
+    */ 
+    public abstract void exportToCsv() throws Exception;
 }
