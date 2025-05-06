@@ -224,6 +224,7 @@ public class ControllerImplementation implements IController, ActionListener {
         }
         insert(p);
         insert.getReset().doClick();
+        JOptionPane.showMessageDialog(null, "Person inserted successfully!");
     }
 
     private void handleReadAction() {
@@ -289,6 +290,7 @@ public class ControllerImplementation implements IController, ActionListener {
         update.getUpdate().addActionListener(this);
         update.getRead().addActionListener(this);
         update.setVisible(true);
+        
     }
 
     public void handleReadForUpdate() {
@@ -330,6 +332,7 @@ public class ControllerImplementation implements IController, ActionListener {
             }
             update(p);
             update.getReset().doClick();
+            JOptionPane.showMessageDialog(null, "Person updated successfully!");
         }
     }
 
