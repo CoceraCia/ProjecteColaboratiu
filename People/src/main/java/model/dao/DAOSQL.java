@@ -103,7 +103,6 @@ public class DAOSQL implements IDAO {
         disconnect(conn);
         return people;
     }
-
     @Override
     public void delete(Person p) throws SQLException {
         Connection conn;
@@ -118,7 +117,6 @@ public class DAOSQL implements IDAO {
                 + ".png");
         photoFile.delete();
     }
-
     @Override
     public void insert(Person p) throws IOException, SQLException {
         Connection conn;
@@ -202,7 +200,6 @@ public class DAOSQL implements IDAO {
         instruction.close();
         disconnect(conn);
     }
-
     @Override
     public void deleteAll() throws Exception {
         Connection conn;
@@ -217,6 +214,35 @@ public class DAOSQL implements IDAO {
         for(File f : file.listFiles())
             f.delete();
     }
+    
+    @Override
+    public int count() {
+        int total = 0;
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            conn = connect();
+            stmt = conn.createStatement();
+            String sql = "SELECT COUNT(*) AS total FROM " + Routes.DB.getDbServerDB() + "." + Routes.DB.getDbServerTABLE();
+            rs = stmt.executeQuery(sql);
+            if (rs.next()) {
+                total = rs.getInt("total");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error en count(): " + e.getMessage());
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) disconnect(conn);
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar recursos en count(): " + e.getMessage());
+            }
+        }
+        return total;
+    }
+
 
     @Override
     public void exportToCsv() throws Exception {
@@ -229,5 +255,4 @@ public class DAOSQL implements IDAO {
             fm.fileWriter(csv);
         }
     }
-
 }

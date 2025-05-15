@@ -47,8 +47,15 @@ public class DAOArrayList implements IDAO{
     public ArrayList<Person> readAll(){
         return people;
     }
-   
     @Override
+    public int count(){
+        int cont = 0;
+        for(Person person : people) {
+            cont ++;
+        }
+        return cont;
+    }
+   @Override
     public void exportToCsv() throws Exception {
         //insert the people into csv 
         for(Person p:people){

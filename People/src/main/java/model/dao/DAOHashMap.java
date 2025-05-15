@@ -59,4 +59,8 @@ public class DAOHashMap implements IDAO {
         }
     }
 
+    @Override
+    public int count() {
+        return people.size();
+    }
 }
