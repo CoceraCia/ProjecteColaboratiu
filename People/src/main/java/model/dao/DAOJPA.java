@@ -143,5 +143,16 @@ public class DAOJPA implements IDAO {
         }
         em.getTransaction().commit();
     }
+    
+    @Override
+    public int count() throws Exception{
+        ArrayList<Person> people = new ArrayList<>();
+        people = readAll();
+        int cont = 0;
+        for(Person person : people) {
+            cont ++;
+        }
+        return cont;
+    }
 
 }

@@ -5,8 +5,8 @@ import controller.IController;
 import view.DataStorageSelection;
 
 /**
- * This class contains the main method, the entry point to the application.
- * @author Francesc Perez
+* This class contains the main method, the entry point to the application.
+* @author Francesc Perez
  * @version 1.1.0
  */
 public class Start {

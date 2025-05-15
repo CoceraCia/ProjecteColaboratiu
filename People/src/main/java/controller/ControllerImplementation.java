@@ -38,6 +38,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.jdatepicker.DateModel;
 import utils.DataValidation;
+import view.Count;
 
 /**
  * This class starts the visual part of the application and programs and manages
@@ -59,6 +60,7 @@ public class ControllerImplementation implements IController, ActionListener {
     private Delete delete;
     private Update update;
     private ReadAll readAll;
+    private Count count;
 
     /**
      * This constructor allows the controller to know which data storage option
@@ -113,8 +115,10 @@ public class ControllerImplementation implements IController, ActionListener {
             handleReadAll();
         } else if (e.getSource() == menu.getDeleteAll()) {
             handleDeleteAll();
-        }
+        }else if (e.getSource() == menu.getCount()) {
+            handleCount();
     }
+}
 
     private void handleDataStorageSelection() {
         String daoSelected = ((javax.swing.JCheckBox) (dSS.getAccept()[1])).getText();
@@ -206,6 +210,7 @@ public class ControllerImplementation implements IController, ActionListener {
         menu.getDelete().addActionListener(this);
         menu.getReadAll().addActionListener(this);
         menu.getDeleteAll().addActionListener(this);
+        menu.getCount().addActionListener(this);
     }
 
     private void handleInsertAction() {
@@ -379,6 +384,19 @@ public class ControllerImplementation implements IController, ActionListener {
         }
     }
     
+    public void handleCount() {
+        int cont = 0;
+        cont = count();
+        if (cont == 0) {
+            JOptionPane.showMessageDialog(menu, "There are not people to count.", "Count - People v1.1.0", JOptionPane.WARNING_MESSAGE);
+        } else {
+            Count count = new Count(menu, true);
+            String c = String.valueOf(cont);
+            count.getPeopleCount().setText(c);
+            count.setVisible(true);
+        }
+    }
+    
     /**
      * This function inserts the Person object with the requested NIF, if it
      * doesn't exist. If there is any access problem with the storage device,
@@ -531,6 +549,21 @@ public class ControllerImplementation implements IController, ActionListener {
                 System.exit(0);
             }
         }
+    }
+    @Override
+    public int count() {
+        int cont = 0;
+        try {
+            cont = dao.count();
+        } catch (Exception ex) {
+            if (ex instanceof FileNotFoundException || ex instanceof IOException
+                    || ex instanceof ParseException || ex instanceof ClassNotFoundException
+                    || ex instanceof SQLException || ex instanceof PersistenceException) {
+                JOptionPane.showMessageDialog(menu, ex.getMessage() + " Closing application.", "Count - People v1.1.0", JOptionPane.ERROR_MESSAGE);
+                System.exit(0);
+            }
+        }
+        return cont;
     }
 
 }

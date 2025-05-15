@@ -63,4 +63,11 @@ public interface IDAO {
      * @throws java.lang.Exception
      */
     public abstract void deleteAll () throws Exception;
+    
+    /**
+     * This function count the people registered in the application.
+     * Return int (number of people in the application)
+     * @throws java.lang.Exception
+     */
+    public abstract int count () throws Exception;
 }

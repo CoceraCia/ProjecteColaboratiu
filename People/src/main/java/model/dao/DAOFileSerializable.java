@@ -1,5 +1,6 @@
 package model.dao;
 
+import java.io.EOFException;
 import model.entity.Person;
 import start.Routes;
 
@@ -170,6 +171,42 @@ public class DAOFileSerializable implements IDAO {
     public void update(Person p) throws FileNotFoundException, IOException, ClassNotFoundException{
         delete(p);
         insert(p);
+    }
+    
+    @Override
+    public int count() {
+        int count = 0;
+        ObjectInputStream ois = null;
+        FileInputStream fis = null;
+
+        try {
+            fis = new FileInputStream(Routes.FILES.getDataFile());
+            ois = new ObjectInputStream(fis);
+
+            while (true) {
+                try {
+                    Person p = (Person) ois.readObject();
+                    if (p != null) {
+                        count++;
+                    }
+                } catch (EOFException eof) {
+                    // Fin del archivo
+                    break;
+                }
+            }
+
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error: " + e.getMessage());
+        } finally {
+            try {
+                if (ois != null) ois.close();
+                if (fis != null) fis.close();
+            } catch (IOException e) {
+                System.out.println("Error al cerrar el archivo: " + e.getMessage());
+            }
+        }
+
+        return count;
     }
 
 }
