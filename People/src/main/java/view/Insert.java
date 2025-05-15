@@ -114,7 +114,6 @@ public class Insert extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        java.awt.GridBagConstraints gridBagConstraints;
 
         insert = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -127,11 +126,16 @@ public class Insert extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         dateOfBirth = new org.jdatepicker.JDatePicker();
         jLabel3 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        nif1 = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        nif2 = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        nif3 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Insert - People v1.1.0");
         setMinimumSize(new java.awt.Dimension(810, 280));
-        getContentPane().setLayout(new java.awt.GridBagLayout());
 
         insert.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         insert.setText("INSERT");
@@ -143,25 +147,12 @@ public class Insert extends javax.swing.JDialog {
                 insertActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 24, 0, 0);
-        getContentPane().add(insert, gridBagConstraints);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Name");
         jLabel1.setMaximumSize(new java.awt.Dimension(100, 22));
         jLabel1.setMinimumSize(new java.awt.Dimension(100, 22));
         jLabel1.setPreferredSize(new java.awt.Dimension(100, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.ipadx = 50;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(24, 24, 0, 0);
-        getContentPane().add(jLabel1, gridBagConstraints);
 
         name.setMaximumSize(new java.awt.Dimension(400, 22));
         name.setMinimumSize(new java.awt.Dimension(400, 22));
@@ -174,13 +165,6 @@ public class Insert extends javax.swing.JDialog {
                 nameKeyTyped(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(24, 24, 0, 0);
-        getContentPane().add(name, gridBagConstraints);
 
         reset.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         reset.setText("RESET");
@@ -193,13 +177,6 @@ public class Insert extends javax.swing.JDialog {
                 resetActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.ipadx = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 24, 0, 0);
-        getContentPane().add(reset, gridBagConstraints);
 
         photo.setBackground(new java.awt.Color(255, 255, 255));
         photo.setFont(new java.awt.Font("Segoe UI", 2, 10)); // NOI18N
@@ -214,27 +191,12 @@ public class Insert extends javax.swing.JDialog {
                 photoMouseClicked(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 5;
-        gridBagConstraints.ipady = 36;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(32, 18, 0, 0);
-        getContentPane().add(photo, gridBagConstraints);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setText("NIF");
         jLabel5.setMaximumSize(new java.awt.Dimension(100, 22));
         jLabel5.setMinimumSize(new java.awt.Dimension(100, 22));
         jLabel5.setPreferredSize(new java.awt.Dimension(100, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 50;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(32, 24, 0, 0);
-        getContentPane().add(jLabel5, gridBagConstraints);
 
         nif.setToolTipText("");
         nif.setMaximumSize(new java.awt.Dimension(400, 22));
@@ -257,63 +219,202 @@ public class Insert extends javax.swing.JDialog {
                 nifKeyTyped(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(32, 24, 0, 0);
-        getContentPane().add(nif, gridBagConstraints);
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setText("Date of Birth");
         jLabel8.setMaximumSize(new java.awt.Dimension(150, 22));
         jLabel8.setMinimumSize(new java.awt.Dimension(150, 22));
         jLabel8.setPreferredSize(new java.awt.Dimension(150, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(24, 24, 0, 0);
-        getContentPane().add(jLabel8, gridBagConstraints);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 2, 8)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Author: francesc.perez@stucom.com - Version 1.1.0");
         jLabel2.setRequestFocusEnabled(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 5;
-        gridBagConstraints.gridwidth = 4;
-        gridBagConstraints.ipadx = 574;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(24, 18, 20, 0);
-        getContentPane().add(jLabel2, gridBagConstraints);
 
         dateOfBirth.setMaximumSize(new java.awt.Dimension(350, 22));
         dateOfBirth.setMinimumSize(new java.awt.Dimension(350, 22));
         dateOfBirth.setPreferredSize(new java.awt.Dimension(350, 22));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.ipadx = 50;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(24, 24, 0, 0);
-        getContentPane().add(dateOfBirth, gridBagConstraints);
 
         jLabel3.setForeground(new java.awt.Color(140, 140, 140));
         jLabel3.setText("Select a Date");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.ipadx = 43;
-        gridBagConstraints.ipady = 14;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(40, 127, 0, 0);
-        getContentPane().add(jLabel3, gridBagConstraints);
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel6.setText("Email");
+        jLabel6.setMaximumSize(new java.awt.Dimension(100, 22));
+        jLabel6.setMinimumSize(new java.awt.Dimension(100, 22));
+        jLabel6.setPreferredSize(new java.awt.Dimension(100, 22));
+
+        nif1.setToolTipText("");
+        nif1.setMaximumSize(new java.awt.Dimension(400, 22));
+        nif1.setMinimumSize(new java.awt.Dimension(400, 22));
+        nif1.setName(""); // NOI18N
+        nif1.setPreferredSize(new java.awt.Dimension(400, 22));
+        nif1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nif1ActionPerformed(evt);
+            }
+        });
+        nif1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                nif1KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                nif1KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nif1KeyTyped(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel7.setText("Phone Number");
+        jLabel7.setMaximumSize(new java.awt.Dimension(100, 22));
+        jLabel7.setMinimumSize(new java.awt.Dimension(100, 22));
+        jLabel7.setPreferredSize(new java.awt.Dimension(100, 22));
+
+        nif2.setToolTipText("");
+        nif2.setMaximumSize(new java.awt.Dimension(400, 22));
+        nif2.setMinimumSize(new java.awt.Dimension(400, 22));
+        nif2.setName(""); // NOI18N
+        nif2.setPreferredSize(new java.awt.Dimension(400, 22));
+        nif2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nif2ActionPerformed(evt);
+            }
+        });
+        nif2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                nif2KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                nif2KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nif2KeyTyped(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel9.setText("Postal Code");
+        jLabel9.setMaximumSize(new java.awt.Dimension(100, 22));
+        jLabel9.setMinimumSize(new java.awt.Dimension(100, 22));
+        jLabel9.setPreferredSize(new java.awt.Dimension(100, 22));
+
+        nif3.setToolTipText("");
+        nif3.setMaximumSize(new java.awt.Dimension(400, 22));
+        nif3.setMinimumSize(new java.awt.Dimension(400, 22));
+        nif3.setName(""); // NOI18N
+        nif3.setPreferredSize(new java.awt.Dimension(400, 22));
+        nif3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nif3ActionPerformed(evt);
+            }
+        });
+        nif3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                nif3KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                nif3KeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nif3KeyTyped(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(photo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(24, 24, 24)
+                                .addComponent(nif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(24, 24, 24)
+                                .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(24, 24, 24)
+                                .addComponent(nif1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(24, 24, 24)
+                                .addComponent(nif2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(24, 24, 24)
+                                .addComponent(nif3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(33, 33, 33))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(314, 314, 314)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(dateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(insert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(24, 24, 24)
+                                .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 752, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(92, 92, 92)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(photo, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nif1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nif2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nif3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(16, 16, 16)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(dateOfBirth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(insert, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addContainerGap())
+        );
 
         pack();
         setLocationRelativeTo(null);
@@ -394,6 +495,54 @@ public class Insert extends javax.swing.JDialog {
     private void insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertActionPerformed
     }//GEN-LAST:event_insertActionPerformed
 
+    private void nif1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nif1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nif1ActionPerformed
+
+    private void nif1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif1KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nif1KeyPressed
+
+    private void nif1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif1KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nif1KeyReleased
+
+    private void nif1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif1KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nif1KeyTyped
+
+    private void nif2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nif2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nif2ActionPerformed
+
+    private void nif2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif2KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nif2KeyPressed
+
+    private void nif2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif2KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nif2KeyReleased
+
+    private void nif2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif2KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nif2KeyTyped
+
+    private void nif3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nif3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nif3ActionPerformed
+
+    private void nif3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif3KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nif3KeyPressed
+
+    private void nif3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif3KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nif3KeyReleased
+
+    private void nif3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif3KeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nif3KeyTyped
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jdatepicker.JDatePicker dateOfBirth;
     private javax.swing.JButton insert;
@@ -401,9 +550,15 @@ public class Insert extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField name;
     private javax.swing.JTextField nif;
+    private javax.swing.JTextField nif1;
+    private javax.swing.JTextField nif2;
+    private javax.swing.JTextField nif3;
     private javax.swing.JLabel photo;
     private javax.swing.JButton reset;
     // End of variables declaration//GEN-END:variables
