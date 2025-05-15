@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import utils.FileManagement;
 
 /**
  * This class implements the IDAO interface and completes the code of the
@@ -209,4 +210,15 @@ public class DAOFileSerializable implements IDAO {
         return count;
     }
 
+    @Override
+    public void exportToCsv() throws Exception {
+        //retrieve the file data
+        ArrayList<Person> people = this.readAll();
+        //insert the people into csv 
+        for(Person p:people){
+            String csv = p.getNif() + "," + p.getName() + "," + p.getDateOfBirth() + "," + p.getPhoto();
+            FileManagement fm = new FileManagement();
+            fm.fileWriter(csv);
+        }
+    }
 }

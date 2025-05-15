@@ -38,6 +38,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.jdatepicker.DateModel;
 import utils.DataValidation;
+import utils.FileManagement;
 
 import view.Count;
 
@@ -115,7 +116,10 @@ public class ControllerImplementation implements IController, ActionListener {
             handleUpdatePerson();
         } else if (e.getSource() == menu.getReadAll()) {
             handleReadAll();
-        } else if (e.getSource() == menu.getDeleteAll()) {
+        } else if (readAll != null && e.getSource() == readAll.getExportToCsv()){
+            handleExportToCsv();
+        }
+        else if (e.getSource() == menu.getDeleteAll()) {
             handleDeleteAll();
         }else if (e.getSource() == menu.getCount()) {
             handleCount();
@@ -231,6 +235,8 @@ public class ControllerImplementation implements IController, ActionListener {
         }
         insert(p);
         insert.getReset().doClick();
+        JOptionPane.showMessageDialog(null, "Person inserted successfully!");
+
     }
 
     private void handleReadAction() {
@@ -337,6 +343,7 @@ public class ControllerImplementation implements IController, ActionListener {
             }
             update(p);
             update.getReset().doClick();
+            JOptionPane.showMessageDialog(null, "Person updated successfully!");
         }
     }
 
@@ -346,6 +353,7 @@ public class ControllerImplementation implements IController, ActionListener {
             JOptionPane.showMessageDialog(menu, "There are not people registered yet.", "Read All - People v1.1.0", JOptionPane.WARNING_MESSAGE);
         } else {
             readAll = new ReadAll(menu, true);
+            readAll.getExportToCsv().addActionListener(this);
             DefaultTableModel model = (DefaultTableModel) readAll.getTable().getModel();
             for (int i = 0; i < s.size(); i++) {
                 model.addRow(new Object[i]);
@@ -366,6 +374,11 @@ public class ControllerImplementation implements IController, ActionListener {
         }
     }
 
+    public void handleExportToCsv(){
+        exportToCsv();
+        JOptionPane.showMessageDialog(menu, "All persons have been exported to "+ FileManagement.DEFAULT_CSV_PATH +" successfully!", "Export to Csv - People v1.1.0", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
     public void handleDeleteAll() {
         Object[] options = {"Yes", "No"};
         //int answer = JOptionPane.showConfirmDialog(menu, "Are you sure to delete all people registered?", "Delete All - People v1.1.0", 0, 0);
@@ -534,7 +547,25 @@ public class ControllerImplementation implements IController, ActionListener {
         }
         return people;
     }
-
+    
+    /**
+     * This function returns the people registered. If there is any access
+     * problem with the storage device, the program stops.
+     *
+     */
+    @Override
+    public void exportToCsv() {
+        try {
+            dao.exportToCsv();
+        } catch (Exception ex) {
+            if (ex instanceof FileNotFoundException || ex instanceof IOException
+                    || ex instanceof ParseException || ex instanceof ClassNotFoundException
+                    || ex instanceof SQLException || ex instanceof PersistenceException) {
+                JOptionPane.showMessageDialog(readAll, ex.getMessage() + " Closing application.", readAll.getTitle(), JOptionPane.ERROR_MESSAGE);
+                System.exit(0);
+            }
+        }
+    }
     /**
      * This function deletes all the people registered. If there is any access
      * problem with the storage device, the program stops.

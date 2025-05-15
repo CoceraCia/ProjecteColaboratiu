@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import utils.FileManagement;
 
 /**
  * This class implements the IDAO interface and completes the code of the
@@ -173,32 +174,10 @@ public class DAOFile implements IDAO {
         insert(p);
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     @Override
     public int count() {
         int count = 0;
-
         try (BufferedReader reader = new BufferedReader(new FileReader(Routes.FILE.getDataFile()))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -211,5 +190,17 @@ public class DAOFile implements IDAO {
         }
 
         return count;
+    }
+
+    @Override
+    public void exportToCsv() throws Exception {
+        //retrieve the file data
+        ArrayList<Person> people = this.readAll();
+        //insert the people into csv 
+        for(Person p:people){
+            String csv = p.getNif() + "," + p.getName() + "," + p.getDateOfBirth() + "," + p.getPhoto();
+            FileManagement fm = new FileManagement();
+            fm.fileWriter(csv);
+        }
     }
 }

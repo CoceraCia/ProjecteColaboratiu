@@ -2,6 +2,9 @@ package model.dao;
 
 import model.entity.Person;
 import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.ImageIcon;
+import utils.FileManagement;
 
 /**
  * This class implements the IDAO interface and completes the code blocks of 
@@ -44,24 +47,6 @@ public class DAOArrayList implements IDAO{
     public ArrayList<Person> readAll(){
         return people;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     @Override
     public int count(){
         int cont = 0;
@@ -69,5 +54,14 @@ public class DAOArrayList implements IDAO{
             cont ++;
         }
         return cont;
+    }
+   @Override
+    public void exportToCsv() throws Exception {
+        //insert the people into csv 
+        for(Person p:people){
+            String csv = p.getNif() + "," + p.getName() + "," + p.getDateOfBirth() + "," + p.getPhoto();
+            FileManagement fm = new FileManagement();
+            fm.fileWriter(csv);
+        }
     }
 }

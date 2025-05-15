@@ -16,6 +16,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.swing.ImageIcon;
+import utils.FileManagement;
 
 /**
  * This class implements the IDAO interface and completes the function code
@@ -155,4 +156,16 @@ public class DAOJPA implements IDAO {
         return cont;
     }
 
+    
+    @Override
+    public void exportToCsv() throws Exception {
+        //retrieve the file data
+        ArrayList<Person> people = this.readAll();
+        //insert the people into csv 
+        for(Person p:people){
+            String csv = p.getNif() + "," + p.getName() + "," + p.getDateOfBirth() + "," + p.getPhoto();
+            FileManagement fm = new FileManagement();
+            fm.fileWriter(csv);
+        }
+    }
 }
