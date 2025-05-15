@@ -17,5 +17,6 @@ public interface IController {
     public abstract void delete(Person p);
     public abstract void start();
     public abstract void deleteAll();
+    
     public abstract int count();
 }

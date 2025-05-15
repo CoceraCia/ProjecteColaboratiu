@@ -38,7 +38,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.jdatepicker.DateModel;
 import utils.DataValidation;
+
 import view.Count;
+
 
 /**
  * This class starts the visual part of the application and programs and manages

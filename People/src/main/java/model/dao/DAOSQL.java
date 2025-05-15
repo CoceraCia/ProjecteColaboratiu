@@ -102,7 +102,6 @@ public class DAOSQL implements IDAO {
         disconnect(conn);
         return people;
     }
-
     @Override
     public void delete(Person p) throws SQLException {
         Connection conn;
@@ -117,7 +116,6 @@ public class DAOSQL implements IDAO {
                 + ".png");
         photoFile.delete();
     }
-
     @Override
     public void insert(Person p) throws IOException, SQLException {
         Connection conn;
@@ -201,7 +199,6 @@ public class DAOSQL implements IDAO {
         instruction.close();
         disconnect(conn);
     }
-
     @Override
     public void deleteAll() throws Exception {
         Connection conn;
@@ -223,7 +220,6 @@ public class DAOSQL implements IDAO {
         Connection conn = null;
         Statement stmt = null;
         ResultSet rs = null;
-
         try {
             conn = connect();
             stmt = conn.createStatement();
@@ -243,7 +239,6 @@ public class DAOSQL implements IDAO {
                 System.out.println("Error al cerrar recursos en count(): " + e.getMessage());
             }
         }
-
         return total;
     }
 }

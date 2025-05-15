@@ -64,6 +64,22 @@ public interface IDAO {
      */
     public abstract void deleteAll () throws Exception;
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /**
      * This function count the people registered in the application.
      * Return int (number of people in the application)

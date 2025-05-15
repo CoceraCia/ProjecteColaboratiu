@@ -45,6 +45,23 @@ public class DAOArrayList implements IDAO{
         return people;
     }
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     @Override
     public int count(){
         int cont = 0;
