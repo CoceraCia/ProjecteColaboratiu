@@ -163,7 +163,7 @@ public class DAOJPA implements IDAO {
         ArrayList<Person> people = this.readAll();
         //insert the people into csv 
         for(Person p:people){
-            String csv = p.getNif() + "," + p.getName() + "," + p.getDateOfBirth() + "," + p.getPhoto();
+            String csv = p.getNif() + "," + p.getName() + "," + p.getPostalCode() + "," + p.getPhoneNumber() + "," +  p.getDateOfBirth() + "," + p.getPhoto();
             FileManagement fm = new FileManagement();
             fm.fileWriter(csv);
         }
