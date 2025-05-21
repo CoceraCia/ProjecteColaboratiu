@@ -4,6 +4,7 @@ import java.awt.Color;
 import static utils.DataValidation.calculateNifLetter;
 import static utils.DataValidation.isLetter;
 import static utils.DataValidation.isNumber;
+import static utils.DataValidation.validPostalCode;
 
 import java.awt.dnd.DropTarget;
 import java.awt.event.FocusAdapter;
@@ -112,6 +113,9 @@ public class Update extends javax.swing.JDialog {
         return reset;
     }
 
+    public JTextField getPostalCode(){
+        return postalCode;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -144,7 +148,7 @@ public class Update extends javax.swing.JDialog {
         jLabel11 = new javax.swing.JLabel();
         nif5 = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        nif6 = new javax.swing.JTextField();
+        postalCode = new javax.swing.JTextField();
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel6.setText("Email");
@@ -387,25 +391,25 @@ public class Update extends javax.swing.JDialog {
         jLabel12.setMinimumSize(new java.awt.Dimension(100, 22));
         jLabel12.setPreferredSize(new java.awt.Dimension(100, 22));
 
-        nif6.setToolTipText("");
-        nif6.setMaximumSize(new java.awt.Dimension(400, 22));
-        nif6.setMinimumSize(new java.awt.Dimension(400, 22));
-        nif6.setName(""); // NOI18N
-        nif6.setPreferredSize(new java.awt.Dimension(400, 22));
-        nif6.addActionListener(new java.awt.event.ActionListener() {
+        postalCode.setToolTipText("");
+        postalCode.setMaximumSize(new java.awt.Dimension(400, 22));
+        postalCode.setMinimumSize(new java.awt.Dimension(400, 22));
+        postalCode.setName(""); // NOI18N
+        postalCode.setPreferredSize(new java.awt.Dimension(400, 22));
+        postalCode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nif6ActionPerformed(evt);
+                postalCodeActionPerformed(evt);
             }
         });
-        nif6.addKeyListener(new java.awt.event.KeyAdapter() {
+        postalCode.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                nif6KeyPressed(evt);
+                postalCodeKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                nif6KeyReleased(evt);
+                postalCodeKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                nif6KeyTyped(evt);
+                postalCodeKeyTyped(evt);
             }
         });
 
@@ -442,7 +446,7 @@ public class Update extends javax.swing.JDialog {
                                 .addGap(33, 33, 33)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(nif5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(nif6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(postalCode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -488,7 +492,7 @@ public class Update extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nif6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(postalCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -665,21 +669,33 @@ public class Update extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_nif5KeyTyped
 
-    private void nif6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nif6ActionPerformed
+    private void postalCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_postalCodeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nif6ActionPerformed
+    }//GEN-LAST:event_postalCodeActionPerformed
 
-    private void nif6KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif6KeyPressed
+    private void postalCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_postalCodeKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nif6KeyPressed
+    }//GEN-LAST:event_postalCodeKeyPressed
 
-    private void nif6KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif6KeyReleased
+    private void postalCodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_postalCodeKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_nif6KeyReleased
+        if (postalCode.getText().length() == 5 && postalCode.getText().length() == 11){
+            if (!validPostalCode(postalCode.getText())) {
+                JOptionPane.showMessageDialog(this, "Incorrect Postal Code", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        if (postalCode.getText().length() == 5 && !postalCode.getText().contains("-") && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_DELETE){
+            postalCode.setText(postalCode.getText() + "-");
+        }
+        if (isLetter(evt.getKeyChar())){
+            evt.consume();
+        }
+    }//GEN-LAST:event_postalCodeKeyReleased
 
-    private void nif6KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif6KeyTyped
+    private void postalCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_postalCodeKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_nif6KeyTyped
+        
+    }//GEN-LAST:event_postalCodeKeyTyped
 
     /**
      * @param args the command line arguments
@@ -705,8 +721,8 @@ public class Update extends javax.swing.JDialog {
     private javax.swing.JTextField nif3;
     private javax.swing.JTextField nif4;
     private javax.swing.JTextField nif5;
-    private javax.swing.JTextField nif6;
     private javax.swing.JLabel photo;
+    private javax.swing.JTextField postalCode;
     private javax.swing.JButton read;
     private javax.swing.JButton reset;
     private javax.swing.JButton update;

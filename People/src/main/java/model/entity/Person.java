@@ -21,6 +21,7 @@ public class Person implements Serializable{
     private String nif;
     private String name;
     private Date dateOfBirth;
+    private String postalCode;
     @Transient
     private ImageIcon photo;
     @Lob
@@ -43,9 +44,11 @@ public class Person implements Serializable{
      * @author Fran Perez
      * @version 1.0
      */
-    public Person(String name, String nif) {
+    public Person(String name, String nif, String postalCode) {
         this.name = name;
         this.nif = nif;
+        this.postalCode = postalCode;
+        
     }
 
     /**
@@ -57,9 +60,10 @@ public class Person implements Serializable{
      * @param dateOfBirth
      * @param photo
      */
-    public Person(String name, String nif, Date dateOfBirth, ImageIcon photo) {
+    public Person(String name, String nif, String postalCode, Date dateOfBirth, ImageIcon photo) {
         this.name = name;      
         this.nif = nif;
+        this.postalCode = postalCode;
         this.dateOfBirth = dateOfBirth;
         this.photo = photo;
     }
@@ -104,7 +108,16 @@ public class Person implements Serializable{
     public void setPhotoOnlyJPA(byte[] photoOnlyJPA) {
         this.photoOnlyJPA = photoOnlyJPA;
     }
-        
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+    
+    
     /**
      * Function used to compare two Personas. There cannot be two or more people
      * with the same ID. Actually it isn't used in this project.

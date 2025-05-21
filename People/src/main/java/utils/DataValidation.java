@@ -15,6 +15,7 @@ public class DataValidation {
     public static final String FILE_SERIALIZATION = "File (Serialization)";
     public static final String SQL_DATABASE = "SQL - Database";
     public static final String JPA_DATABASE = "JPA - Database";
+    public static final String POSTAL_CODE_REGEX = "^(\\d{5})(?:[-\\s]?\\d{4})?$";
     
 
     public static boolean isNumber(char c) {
@@ -33,5 +34,9 @@ public class DataValidation {
             "N","J","Z","S","Q","V","H","L","C","K","E"};
         return nifNoLetter + letter[Integer.parseInt(nifNoLetter)%23];
     }
-
+    
+    //Data validation of postal code
+    public static boolean validPostalCode(String postalCode){
+        return (postalCode.matches(POSTAL_CODE_REGEX));
+    }
 }
