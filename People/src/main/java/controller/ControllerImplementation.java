@@ -183,7 +183,8 @@ public class ControllerImplementation implements IController, ActionListener {
                         + "nif varchar(9) primary key not null, "
                         + "name varchar(50), "
                         + "dateOfBirth DATE, "
-                        + "photo varchar(200) );");
+                        + "photo varchar(200),"
+                        + "phoneNumber varchar(20));");
                 stmt.close();
                 conn.close();
             }
@@ -226,16 +227,23 @@ public class ControllerImplementation implements IController, ActionListener {
     }
 
     private void handleInsertPerson() {
-        Person p = new Person(insert.getNam().getText(), insert.getNif().getText());
+        Person p = new Person(insert.getNam().getText(), insert.getNif().getText(), insert.getPhoneNumber().getText());
         if (insert.getDateOfBirth().getModel().getValue() != null) {
             p.setDateOfBirth(((GregorianCalendar) insert.getDateOfBirth().getModel().getValue()).getTime());
         }
         if (insert.getPhoto().getIcon() != null) {
             p.setPhoto((ImageIcon) insert.getPhoto().getIcon());
         }
-        insert(p);
-        insert.getReset().doClick();
-        JOptionPane.showMessageDialog(null, "Person inserted successfully!");
+        
+        Boolean doit = DataValidation.phoneNumberValidation(insert.getPhoneNumber().getText());
+        if (doit) {
+           insert(p);
+            insert.getReset().doClick();
+            JOptionPane.showMessageDialog(null, "Person inserted successfully!"); 
+        }else {
+            JOptionPane.showMessageDialog(null, "Numero de telefono no valido!"); 
+        }
+    
 
     }
 
@@ -334,16 +342,23 @@ public class ControllerImplementation implements IController, ActionListener {
 
     public void handleUpdatePerson() {
         if (update != null) {
-            Person p = new Person(update.getNam().getText(), update.getNif().getText());
+            Person p = new Person(update.getNam().getText(), update.getNif().getText(), update.getPhoneNumber().getText());
             if ((update.getDateOfBirth().getModel().getValue()) != null) {
                 p.setDateOfBirth(((GregorianCalendar) update.getDateOfBirth().getModel().getValue()).getTime());
             }
             if ((ImageIcon) (update.getPhoto().getIcon()) != null) {
                 p.setPhoto((ImageIcon) update.getPhoto().getIcon());
             }
-            update(p);
-            update.getReset().doClick();
-            JOptionPane.showMessageDialog(null, "Person updated successfully!");
+            
+            Boolean doit = DataValidation.phoneNumberValidation(update.getPhoneNumber().getText());
+            if (doit) {
+                update(p);
+                update.getReset().doClick();
+                JOptionPane.showMessageDialog(null, "Person updated successfully!");
+            }else {
+                JOptionPane.showMessageDialog(null, "Numero de telefono no valido!"); 
+            }
+            
         }
     }
 

@@ -59,7 +59,7 @@ public class DAOArrayList implements IDAO{
     public void exportToCsv() throws Exception {
         //insert the people into csv 
         for(Person p:people){
-            String csv = p.getNif() + "," + p.getName() + "," + p.getDateOfBirth() + "," + p.getPhoto();
+            String csv = p.getNif() + "," + p.getName() + "," + p.getDateOfBirth() + "," + p.getPhoto() + "," + p.getPhoneNumber();
             FileManagement fm = new FileManagement();
             fm.fileWriter(csv);
         }

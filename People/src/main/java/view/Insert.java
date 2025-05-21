@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.jdatepicker.DateModel;
 import org.jdatepicker.JDatePicker;
+import utils.DataValidation;
 
 /**
  * Interface used to register a person. It is mandatory to enter at least the 
@@ -101,6 +102,11 @@ public class Insert extends javax.swing.JDialog {
     public JTextField getNif() {
         return nif;
     }
+    
+    public JTextField getPhoneNumber() {
+        return nif2; 
+    }
+    
 
     public JLabel getPhoto() {
         return photo;
@@ -277,6 +283,11 @@ public class Insert extends javax.swing.JDialog {
         nif2.setMinimumSize(new java.awt.Dimension(400, 22));
         nif2.setName(""); // NOI18N
         nif2.setPreferredSize(new java.awt.Dimension(400, 22));
+        nif2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                nif2FocusLost(evt);
+            }
+        });
         nif2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nif2ActionPerformed(evt);
@@ -516,7 +527,7 @@ public class Insert extends javax.swing.JDialog {
     }//GEN-LAST:event_nif2ActionPerformed
 
     private void nif2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif2KeyPressed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_nif2KeyPressed
 
     private void nif2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif2KeyReleased
@@ -524,7 +535,7 @@ public class Insert extends javax.swing.JDialog {
     }//GEN-LAST:event_nif2KeyReleased
 
     private void nif2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif2KeyTyped
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_nif2KeyTyped
 
     private void nif3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nif3ActionPerformed
@@ -542,6 +553,10 @@ public class Insert extends javax.swing.JDialog {
     private void nif3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif3KeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_nif3KeyTyped
+
+    private void nif2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nif2FocusLost
+        
+    }//GEN-LAST:event_nif2FocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jdatepicker.JDatePicker dateOfBirth;
