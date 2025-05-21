@@ -4,6 +4,7 @@ import java.awt.Color;
 import static utils.DataValidation.calculateNifLetter;
 import static utils.DataValidation.isLetter;
 import static utils.DataValidation.isNumber;
+import static utils.DataValidation.validPostalCode;
 
 import java.awt.dnd.DropTarget;
 import java.awt.event.FocusAdapter;
@@ -105,6 +106,10 @@ public class Insert extends javax.swing.JDialog {
     public JLabel getPhoto() {
         return photo;
     }
+    
+    public JTextField getPostalCode(){
+        return postalCode;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -131,7 +136,7 @@ public class Insert extends javax.swing.JDialog {
         jLabel7 = new javax.swing.JLabel();
         nif2 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        nif3 = new javax.swing.JTextField();
+        postalCode = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Insert - People v1.1.0");
@@ -300,25 +305,22 @@ public class Insert extends javax.swing.JDialog {
         jLabel9.setMinimumSize(new java.awt.Dimension(100, 22));
         jLabel9.setPreferredSize(new java.awt.Dimension(100, 22));
 
-        nif3.setToolTipText("");
-        nif3.setMaximumSize(new java.awt.Dimension(400, 22));
-        nif3.setMinimumSize(new java.awt.Dimension(400, 22));
-        nif3.setName(""); // NOI18N
-        nif3.setPreferredSize(new java.awt.Dimension(400, 22));
-        nif3.addActionListener(new java.awt.event.ActionListener() {
+        postalCode.setToolTipText("");
+        postalCode.setMaximumSize(new java.awt.Dimension(400, 22));
+        postalCode.setMinimumSize(new java.awt.Dimension(400, 22));
+        postalCode.setName(""); // NOI18N
+        postalCode.setPreferredSize(new java.awt.Dimension(400, 22));
+        postalCode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nif3ActionPerformed(evt);
+                postalCodeActionPerformed(evt);
             }
         });
-        nif3.addKeyListener(new java.awt.event.KeyAdapter() {
+        postalCode.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                nif3KeyPressed(evt);
+                postalCodeKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                nif3KeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                nif3KeyTyped(evt);
+                postalCodeKeyReleased(evt);
             }
         });
 
@@ -352,7 +354,7 @@ public class Insert extends javax.swing.JDialog {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(24, 24, 24)
-                                .addComponent(nif3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(postalCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(33, 33, 33))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -398,7 +400,7 @@ public class Insert extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nif3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(postalCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -421,7 +423,7 @@ public class Insert extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void showInsert() {
-        if (!name.getText().isEmpty() && !nif.isEditable()) {
+        if (!name.getText().isEmpty() && !nif.isEditable() && validPostalCode(postalCode.getText())) {
             insert.setEnabled(true);
         } else {
             insert.setEnabled(false);
@@ -432,6 +434,8 @@ public class Insert extends javax.swing.JDialog {
         nif.setEditable(true);
         nif.setText("");
         name.setText("");
+        postalCode.setEditable(true);
+        postalCode.setText("");
         photo.setIcon(null);
         //We reset the calendar date to the current date ...
         LocalDate dateLocate = LocalDate.now();
@@ -487,7 +491,8 @@ public class Insert extends javax.swing.JDialog {
             showInsert();
         }
     }//GEN-LAST:event_nifKeyPressed
-
+              
+    
     private void nifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nifActionPerformed
         
     }//GEN-LAST:event_nifActionPerformed
@@ -527,21 +532,32 @@ public class Insert extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_nif2KeyTyped
 
-    private void nif3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nif3ActionPerformed
+    private void postalCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_postalCodeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nif3ActionPerformed
+    }//GEN-LAST:event_postalCodeActionPerformed
 
-    private void nif3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif3KeyPressed
+    private void postalCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_postalCodeKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nif3KeyPressed
+        if (postalCode.getText().length() == 10) {
+            evt.consume();
+            postalCode.setEditable(false);
+        } 
+        showInsert();
+    }//GEN-LAST:event_postalCodeKeyPressed
 
-    private void nif3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif3KeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nif3KeyReleased
-
-    private void nif3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif3KeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nif3KeyTyped
+    private void postalCodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_postalCodeKeyReleased
+         if (postalCode.getText().length() == 10 || postalCode.getText().length() == 10) {
+             if(!validPostalCode(postalCode.getText())){
+                 JOptionPane.showMessageDialog(this, "Incorrect Postal Code", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+                 postalCode.setText("");
+                 showInsert();
+                 postalCode.setEditable(true);
+                 return;
+             }
+            postalCode.setEditable(false);
+        }
+         showInsert();
+    }//GEN-LAST:event_postalCodeKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jdatepicker.JDatePicker dateOfBirth;
@@ -558,8 +574,8 @@ public class Insert extends javax.swing.JDialog {
     private javax.swing.JTextField nif;
     private javax.swing.JTextField nif1;
     private javax.swing.JTextField nif2;
-    private javax.swing.JTextField nif3;
     private javax.swing.JLabel photo;
+    private javax.swing.JTextField postalCode;
     private javax.swing.JButton reset;
     // End of variables declaration//GEN-END:variables
 }
