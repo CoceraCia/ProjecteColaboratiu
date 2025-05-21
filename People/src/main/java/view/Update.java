@@ -103,10 +103,6 @@ public class Update extends javax.swing.JDialog {
     public JTextField getNif() {
         return nif;
     }
-    
-    public JTextField getPhoneNumber() {
-        return nif2; 
-    }
 
     public JLabel getPhoto() {
         return photo;
