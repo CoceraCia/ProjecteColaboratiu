@@ -1,4 +1,4 @@
-package model.dao;
+    package model.dao;
 
 import java.io.EOFException;
 import model.entity.Person;

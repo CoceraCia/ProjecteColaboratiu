@@ -101,9 +101,9 @@ public class DAOFile implements IDAO {
         if (p.getDateOfBirth() != null) {
             DateFormat dateFormat = new SimpleDateFormat("yyy/MM/dd");
             String dateAsString = dateFormat.format(p.getDateOfBirth());
-            bw.write(p.getName() + "\t" + p.getNif() + "\t" + dateAsString + "\t");
+            bw.write(p.getName() + "\t" + p.getNif() + "\t" + dateAsString + "\t" + p.getPhoneNumber() + "\t");
         } else {
-            bw.write(p.getName() + "\t" + p.getNif() + "\t" + "null" + "\t");
+            bw.write(p.getName() + "\t" + p.getNif() + "\t" + "null" + "\t" + p.getPhoneNumber() + "\t");
         }
         if (p.getPhoto() != null) {
             FileOutputStream out;
@@ -198,7 +198,7 @@ public class DAOFile implements IDAO {
         ArrayList<Person> people = this.readAll();
         //insert the people into csv 
         for(Person p:people){
-            String csv = p.getNif() + "," + p.getName() + "," + p.getDateOfBirth() + "," + p.getPhoto();
+            String csv = p.getNif() + "," + p.getName() + "," + p.getDateOfBirth() + "," + p.getPhoto()+ "," + p.getPhoneNumber();;
             FileManagement fm = new FileManagement();
             fm.fileWriter(csv);
         }
