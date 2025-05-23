@@ -23,6 +23,7 @@ public class Person implements Serializable{
     private Date dateOfBirth;
     private String postalCode;
     private String phoneNumber;
+    private String email;
     @Transient
     private ImageIcon photo;
     @Lob
@@ -44,8 +45,14 @@ public class Person implements Serializable{
      * Constructor with mandatory data.
      * @author Fran Perez
      * @version 1.0
+     * @param name
+     * @param nif
+     * @param postalCode
+     * @param phoneNumber
+     * @param email
      */
-    public Person(String name, String nif, String postalCode, String phoneNumber) {
+    public Person(String name, String nif, String postalCode, String phoneNumber, String email) {
+        this.email = email;
         this.name = name;
         this.nif = nif;
         this.postalCode = postalCode;
@@ -59,14 +66,18 @@ public class Person implements Serializable{
      * @version 1.0
      * @param name
      * @param nif
+     * @param postalCode
+     * @param phoneNumber
+     * @param email
      * @param dateOfBirth
      * @param photo
      */
-    public Person(String name, String nif, String postalCode, String phoneNumber , Date dateOfBirth, ImageIcon photo) {
+    public Person(String name, String nif, String postalCode, String phoneNumber ,String email, Date dateOfBirth, ImageIcon photo) {
         this.name = name;      
         this.nif = nif;
         this.postalCode = postalCode;
         this.phoneNumber = phoneNumber;
+        this.email = email;
         this.dateOfBirth = dateOfBirth;
         this.photo = photo;
     }
@@ -126,6 +137,14 @@ public class Person implements Serializable{
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
     
     

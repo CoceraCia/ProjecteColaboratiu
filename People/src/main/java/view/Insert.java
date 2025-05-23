@@ -115,6 +115,10 @@ public class Insert extends javax.swing.JDialog {
     public JTextField getPhoneNumber() {
         return phoneNumber;
     }
+
+    public JTextField getEmail() {
+        return email;
+    }
     
     
 
@@ -139,7 +143,7 @@ public class Insert extends javax.swing.JDialog {
         dateOfBirth = new org.jdatepicker.JDatePicker();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        nif1 = new javax.swing.JTextField();
+        email = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         phoneNumber = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -154,11 +158,6 @@ public class Insert extends javax.swing.JDialog {
         insert.setMaximumSize(new java.awt.Dimension(187, 33));
         insert.setMinimumSize(new java.awt.Dimension(187, 33));
         insert.setPreferredSize(new java.awt.Dimension(187, 33));
-        insert.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                insertActionPerformed(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Name");
@@ -215,11 +214,6 @@ public class Insert extends javax.swing.JDialog {
         nif.setMinimumSize(new java.awt.Dimension(400, 22));
         nif.setName(""); // NOI18N
         nif.setPreferredSize(new java.awt.Dimension(400, 22));
-        nif.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nifActionPerformed(evt);
-            }
-        });
         nif.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 nifKeyPressed(evt);
@@ -256,25 +250,17 @@ public class Insert extends javax.swing.JDialog {
         jLabel6.setMinimumSize(new java.awt.Dimension(100, 22));
         jLabel6.setPreferredSize(new java.awt.Dimension(100, 22));
 
-        nif1.setToolTipText("");
-        nif1.setMaximumSize(new java.awt.Dimension(400, 22));
-        nif1.setMinimumSize(new java.awt.Dimension(400, 22));
-        nif1.setName(""); // NOI18N
-        nif1.setPreferredSize(new java.awt.Dimension(400, 22));
-        nif1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nif1ActionPerformed(evt);
-            }
-        });
-        nif1.addKeyListener(new java.awt.event.KeyAdapter() {
+        email.setToolTipText("");
+        email.setMaximumSize(new java.awt.Dimension(400, 22));
+        email.setMinimumSize(new java.awt.Dimension(400, 22));
+        email.setName(""); // NOI18N
+        email.setPreferredSize(new java.awt.Dimension(400, 22));
+        email.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                nif1KeyPressed(evt);
+                emailKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                nif1KeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                nif1KeyTyped(evt);
+                emailKeyReleased(evt);
             }
         });
 
@@ -340,7 +326,7 @@ public class Insert extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(24, 24, 24)
-                                .addComponent(nif1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(24, 24, 24)
@@ -386,7 +372,7 @@ public class Insert extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nif1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -417,7 +403,7 @@ public class Insert extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void showInsert() {
-        if (!name.getText().isEmpty() && !nif.isEditable() && validPostalCode(postalCode.getText()) && validPhoneNumber(phoneNumber.getText())) {
+        if (!name.getText().isEmpty() && !nif.isEditable() && validEmail(email.getText()) && validPostalCode(postalCode.getText()) && validPhoneNumber(phoneNumber.getText())) {
             insert.setEnabled(true);
         } else {
             insert.setEnabled(false);
@@ -430,6 +416,10 @@ public class Insert extends javax.swing.JDialog {
         name.setText("");
         postalCode.setEditable(true);
         postalCode.setText("");
+        phoneNumber.setEditable(true);
+        phoneNumber.setText("");
+        email.setEditable(true);
+        email.setText("");
         photo.setIcon(null);
         //We reset the calendar date to the current date ...
         LocalDate dateLocate = LocalDate.now();
@@ -487,28 +477,29 @@ public class Insert extends javax.swing.JDialog {
     }//GEN-LAST:event_nifKeyPressed
 
 
-    private void nifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nifActionPerformed
-
-    }//GEN-LAST:event_nifActionPerformed
-
-    private void insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertActionPerformed
-    }//GEN-LAST:event_insertActionPerformed
-
-    private void nif1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nif1ActionPerformed
+    private void emailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nif1ActionPerformed
+        if (email.getText().length() == 254) { // Maximum length of an email
+            evt.consume();
+            email.setEditable(false);
+        }
+        showInsert();
+    }//GEN-LAST:event_emailKeyPressed
 
-    private void nif1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif1KeyPressed
+    private void emailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_nif1KeyPressed
-
-    private void nif1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif1KeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nif1KeyReleased
-
-    private void nif1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif1KeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nif1KeyTyped
+        if (email.getText().length() == 254 || email.getText().length() == 254) {  //Maximum length of an email
+            if (!validEmail(email.getText())) {
+                JOptionPane.showMessageDialog(this, "Incorrect email", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+                email.setText("");
+                showInsert();
+                email.setEditable(true);
+                return;
+            }
+            email.setEditable(false);
+        }
+        showInsert();
+    }//GEN-LAST:event_emailKeyReleased
 
     private void phoneNumberKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneNumberKeyPressed
         // TODO add your handling code here:
@@ -559,6 +550,7 @@ public class Insert extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jdatepicker.JDatePicker dateOfBirth;
+    private javax.swing.JTextField email;
     private javax.swing.JButton insert;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -570,7 +562,6 @@ public class Insert extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField name;
     private javax.swing.JTextField nif;
-    private javax.swing.JTextField nif1;
     private javax.swing.JTextField phoneNumber;
     private javax.swing.JLabel photo;
     private javax.swing.JTextField postalCode;

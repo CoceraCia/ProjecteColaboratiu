@@ -17,6 +17,7 @@ public class DataValidation {
     public static final String JPA_DATABASE = "JPA - Database";
     public static final String POSTAL_CODE_REGEX = "^(\\d{5})(?:[-\\s]?\\d{4})?$";
     public static final String PHONE_NUMBER_REGEX = "^\\+?[0-9]{1,4}?[-.\\s]?(\\d{1,3})?[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,9}$";
+    public static final String EMAIL_REGEX = "^[a-zA-Z0-9_+&-]+(?:.[a-zA-Z0-9_+&-]+)*@(?:[a-zA-Z0-9-]+.)+[a-zA-Z]{2,7}$";
     
 
     public static boolean isNumber(char c) {
@@ -43,5 +44,9 @@ public class DataValidation {
     
     public static boolean validPhoneNumber(String phoneNumber){
         return (phoneNumber.matches(PHONE_NUMBER_REGEX));
+    }
+    
+    public static boolean validEmail(String email){
+        return (email.matches(EMAIL_REGEX));
     }
 }

@@ -173,6 +173,20 @@ public class ControllerImplementation implements IController, ActionListener {
     }
 
     private void setupSQLDatabase() {
+        File folderPath = new File(Routes.DB.getFolderPath());
+        File folderPhotos = new File(Routes.DB.getFolderPhotos());
+        File dataFile = new File(Routes.DB.getDataFile());
+        folderPath.mkdir();
+        folderPhotos.mkdir();
+        if (!dataFile.exists()) {
+            try {
+                dataFile.createNewFile();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(dSS, "File structure not created. Closing application.", "File - People v1.1.0", JOptionPane.ERROR_MESSAGE);
+                System.exit(0);
+            }
+        }
+        dao = new DAOFile();
         try {
             Connection conn = DriverManager.getConnection(Routes.DB.getDbServerAddress() + Routes.DB.getDbServerComOpt(),
                     Routes.DB.getDbServerUser(), Routes.DB.getDbServerPassword());
@@ -183,7 +197,8 @@ public class ControllerImplementation implements IController, ActionListener {
                         + "nif varchar(9) primary key not null, "
                         + "name varchar(50), "
                         + "postalCode varchar(50), "
-                        + "phoneNumber varchar(50), "
+                        + "phoneNumber varchar(50),"
+                        + "email varchar(255), "
                         + "dateOfBirth DATE, "
                         + "photo varchar(200) );");
                 stmt.close();
@@ -228,7 +243,7 @@ public class ControllerImplementation implements IController, ActionListener {
     }
 
     private void handleInsertPerson() {
-        Person p = new Person(insert.getNam().getText(), insert.getNif().getText(), insert.getPostalCode().getText(), insert.getPhoneNumber().getText());
+        Person p = new Person(insert.getNam().getText(), insert.getNif().getText(), insert.getPostalCode().getText(), insert.getPhoneNumber().getText(), insert.getEmail().getText());
         if (insert.getDateOfBirth().getModel().getValue() != null) {
             p.setDateOfBirth(((GregorianCalendar) insert.getDateOfBirth().getModel().getValue()).getTime());
         }
@@ -252,6 +267,9 @@ public class ControllerImplementation implements IController, ActionListener {
         Person pNew = read(p);
         if (pNew != null) {
             read.getNam().setText(pNew.getName());
+            read.getEmail().setText(pNew.getEmail());
+            read.getPhoneNumber().setText(pNew.getPhoneNumber());
+            read.getPostalCode().setText(pNew.getPostalCode());
             if (pNew.getDateOfBirth() != null) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(pNew.getDateOfBirth());
@@ -294,8 +312,7 @@ public class ControllerImplementation implements IController, ActionListener {
             Person p = new Person(delete.getNif().getText());
             delete(p);
             delete.getReset().doClick();
-        }
-            JOptionPane.showMessageDialog(menu, "Person deleted successfully!!", "Delete Person - People v1.1.0", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }
 
@@ -312,10 +329,16 @@ public class ControllerImplementation implements IController, ActionListener {
             Person pNew = read(p);
             if (pNew != null) {
                 update.getNam().setEnabled(true);
+                update.getEmail().setEnabled(true);
+                update.getPhoneNumber().setEnabled(true);
+                update.getPostalCode().setEnabled(true);
                 update.getDateOfBirth().setEnabled(true);
                 update.getPhoto().setEnabled(true);
                 update.getUpdate().setEnabled(true);
                 update.getNam().setText(pNew.getName());
+                update.getEmail().setText(pNew.getEmail());
+                update.getPhoneNumber().setText(pNew.getPhoneNumber());
+                update.getPostalCode().setText(pNew.getPostalCode());
                 if (pNew.getDateOfBirth() != null) {
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(pNew.getDateOfBirth());
@@ -336,7 +359,7 @@ public class ControllerImplementation implements IController, ActionListener {
 
     public void handleUpdatePerson() {
         if (update != null) {
-            Person p = new Person(update.getNam().getText(), update.getNif().getText(), update.getPostalCode().getText(), update.getPhoneNumber().getText() );
+            Person p = new Person(update.getNam().getText(), update.getNif().getText(), update.getPostalCode().getText(), update.getPhoneNumber().getText(), update.getEmail().getText() );
             if ((update.getDateOfBirth().getModel().getValue()) != null) {
                 p.setDateOfBirth(((GregorianCalendar) update.getDateOfBirth().getModel().getValue()).getTime());
             }
@@ -362,15 +385,17 @@ public class ControllerImplementation implements IController, ActionListener {
                 model.setValueAt(s.get(i).getNif(), i, 0);
                 model.setValueAt(s.get(i).getName(), i, 1);
                 model.setValueAt(s.get(i).getPostalCode(), i, 2);
+                model.setValueAt(s.get(i).getPhoneNumber(), i, 3);
+                model.setValueAt(s.get(i).getEmail(), i, 4);
                 if (s.get(i).getDateOfBirth() != null) {
-                    model.setValueAt(s.get(i).getDateOfBirth().toString(), i, 3);
+                    model.setValueAt(s.get(i).getDateOfBirth().toString(), i, 5);
                 } else {
-                    model.setValueAt("", i, 3);
+                    model.setValueAt("", i, 5);
                 }
                 if (s.get(i).getPhoto() != null) {
-                    model.setValueAt("yes", i, 4);
+                    model.setValueAt("yes", i, 6);
                 } else {
-                    model.setValueAt("no", i, 4);
+                    model.setValueAt("no", i, 6);
                 }
             }
             readAll.setVisible(true);
@@ -481,6 +506,7 @@ public class ControllerImplementation implements IController, ActionListener {
         try {
             if (dao.read(p) != null) {
                 dao.delete(p);
+                JOptionPane.showMessageDialog(menu, "Person deleted successfully!!", "Delete Person - People v1.1.0", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 throw new PersonException(p.getNif() + " is not registered and can not "
                         + "be DELETED");
