@@ -212,11 +212,11 @@ public class Update extends javax.swing.JDialog {
         name.setMinimumSize(new java.awt.Dimension(400, 22));
         name.setPreferredSize(new java.awt.Dimension(400, 22));
         name.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                nameKeyPressed(evt);
-            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 nameKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nameKeyTyped(evt);
             }
         });
 
@@ -481,15 +481,6 @@ public class Update extends javax.swing.JDialog {
         update.setEnabled(false);
     }//GEN-LAST:event_resetActionPerformed
 
-    private void nameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyPressed
-        if (!isLetter(evt.getKeyChar())) {
-            JOptionPane.showMessageDialog(this, "Type only uppercase or lowercase letters, hyphens, and whitespace.", "UPdate - People v1.0", JOptionPane.WARNING_MESSAGE);
-            int posDelete = name.getText().indexOf(evt.getKeyChar());
-            StringBuilder newName = new StringBuilder(name.getText());
-            name.setText(newName.deleteCharAt(posDelete).toString());
-        }        // TODO add your handling code here:
-    }//GEN-LAST:event_nameKeyPressed
-
     private void nameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyReleased
         if (name.getText().length() == 0) {
             update.setEnabled(false);
@@ -572,6 +563,18 @@ public class Update extends javax.swing.JDialog {
         }
         showUpdate();
     }//GEN-LAST:event_postalCodeKeyReleased
+
+    private void nameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyTyped
+        // TODO add your handling code here:
+         if (!isLetter(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_DELETE) {
+            JOptionPane.showMessageDialog(this, "Type only uppercase or lowercase letters, hyphens, and whitespace.", "UPdate - People v1.0", JOptionPane.WARNING_MESSAGE);
+            int posDelete = name.getText().indexOf(evt.getKeyChar());
+            StringBuilder newName = new StringBuilder(name.getText());
+            name.setText(newName.deleteCharAt(posDelete).toString());
+        }  else if (isLetter(evt.getKeyChar()) || evt.getKeyChar() == KeyEvent.VK_BACK_SPACE || evt.getKeyChar() == KeyEvent.VK_DELETE) {
+            
+        }
+    }//GEN-LAST:event_nameKeyTyped
 
     /**
      * @param args the command line arguments
