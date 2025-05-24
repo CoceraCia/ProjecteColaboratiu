@@ -41,6 +41,7 @@ import utils.DataValidation;
 import utils.FileManagement;
 
 import view.Count;
+import view.Login;
 
 
 /**
@@ -58,6 +59,7 @@ public class ControllerImplementation implements IController, ActionListener {
     private final DataStorageSelection dSS;
     private IDAO dao;
     private Menu menu;
+    private Login login;
     private Insert insert;
     private Read read;
     private Delete delete;
@@ -137,7 +139,8 @@ public class ControllerImplementation implements IController, ActionListener {
             case DataValidation.SQL_DATABASE -> setupSQLDatabase();
             case DataValidation.JPA_DATABASE -> setupJPADatabase();
         }
-        setupMenu();
+        setupLogin();
+        
     }
 
     private void setupFileStorage() {
@@ -218,6 +221,11 @@ public class ControllerImplementation implements IController, ActionListener {
         menu.getReadAll().addActionListener(this);
         menu.getDeleteAll().addActionListener(this);
         menu.getCount().addActionListener(this);
+    }
+    
+    private void setupLogin() {
+        login = new Login();
+        login.setVisible(true);
     }
 
     private void handleInsertAction() {
