@@ -19,10 +19,12 @@ import utils.PasswordHasher;
 public class User {
     private String userName;
     private char[] password;
+    private String role; //employee or admin
 
-    public User(String userName, char[] password) {
+    public User(String userName, char[] password, String role) {
         this.userName = userName;
         this.password = password;
+        this.role = role;
     }
 
     public String getUserName() {
@@ -40,5 +42,14 @@ public class User {
     public void setPassword(char[] password) {
         this.password = password;
     }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+    
     
 }

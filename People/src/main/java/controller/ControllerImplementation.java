@@ -69,6 +69,7 @@ public class ControllerImplementation implements IController, ActionListener {
     private Update update;
     private ReadAll readAll;
     private Count count;
+    private User activeUser;
 
     /**
      * This constructor allows the controller to know which data storage option
@@ -240,6 +241,12 @@ public class ControllerImplementation implements IController, ActionListener {
     private void setupMenu() {
         menu = new Menu();
         menu.setVisible(true);
+        if (activeUser.getRole().equals("employee")){
+            menu.getInsert().setEnabled(false);
+            menu.getUpdate().setEnabled(false);
+            menu.getDelete().setEnabled(false);
+            menu.getDeleteAll().setEnabled(false);
+        }
         menu.getInsert().addActionListener(this);
         menu.getRead().addActionListener(this);
         menu.getUpdate().addActionListener(this);
@@ -258,11 +265,12 @@ public class ControllerImplementation implements IController, ActionListener {
                 String hashedPassword = phash.hashPassword(user.getPassword());
                 try{
                     String sql = "INSERT INTO " + Routes.LOGIN.getDbServerDB() + "." + Routes.LOGIN.getDbServerTABLE()
-                        + " (username, password)"
-                        + " VALUES (?, ?)";
+                        + " (username, password, role)"
+                        + " VALUES (?, ?, ?)";
                     PreparedStatement pstmt = conn.prepareStatement(sql);
                     pstmt.setString(1, user.getUserName());
                     pstmt.setString(2, hashedPassword);
+                    pstmt.setString(3, user.getRole());
                     pstmt.executeUpdate();
                     pstmt.close();
                     conn.close();
@@ -286,7 +294,8 @@ public class ControllerImplementation implements IController, ActionListener {
                 stmt.executeUpdate("create database if not exists " + Routes.LOGIN.getDbServerDB() + ";");
                 stmt.executeUpdate("create table if not exists " + Routes.LOGIN.getDbServerDB() + "." + Routes.LOGIN.getDbServerTABLE() + "("
                         + "username varchar(50) primary key not null, "
-                        + "password varchar(400) not null"
+                        + "password varchar(400) not null,"
+                        + "role varchar(45) not null "
                         + ");");
                 stmt.close();
                 conn.close();
@@ -295,8 +304,8 @@ public class ControllerImplementation implements IController, ActionListener {
             JOptionPane.showMessageDialog(dSS, "SQL-DDBB structure not created for login. Closing application.", "SQL_DDBB - People v1.1.0", JOptionPane.ERROR_MESSAGE);
             System.exit(0);
         }
-        insertUserToDatabase(new User("user", "user".toCharArray()));
-        insertUserToDatabase(new User("admin", "admin".toCharArray()));
+        insertUserToDatabase(new User("user", "user".toCharArray(), "employee"));
+        insertUserToDatabase(new User("admin", "admin".toCharArray(), "admin"));
         
         handleLoginAction();
     }
@@ -319,9 +328,11 @@ public class ControllerImplementation implements IController, ActionListener {
                 PreparedStatement pstmt = conn.prepareStatement(sql);
                 pstmt.setString(1, userName);
                 String passwRs = "";
+                String userRole = "";
                     ResultSet rs = pstmt.executeQuery();
                     if (rs.next()) {
                         passwRs = rs.getString("password");
+                        userRole = rs.getString("role");
                     }
                     if (passwRs.equals("")){
                         JOptionPane.showMessageDialog(null, "Incorrect username or password", "Login - People v1.1.0", JOptionPane.ERROR_MESSAGE);
@@ -331,6 +342,7 @@ public class ControllerImplementation implements IController, ActionListener {
                 conn.close();
                 if (pswHasher.checkPassword(cPassw, passwRs)) {
                     login.setVisible(false);
+                    activeUser = new User(userName, cPassw, userRole);
                     setupMenu();
                 } else {
                     JOptionPane.showMessageDialog(null, "Incorrect user or password.", "Login - People v1.1.0", JOptionPane.ERROR_MESSAGE);
