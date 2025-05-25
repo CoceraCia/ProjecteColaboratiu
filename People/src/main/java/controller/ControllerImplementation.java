@@ -25,6 +25,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
@@ -36,13 +38,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.entity.User;
 import org.jdatepicker.DateModel;
 import utils.DataValidation;
 import utils.FileManagement;
+import utils.PasswordHasher;
 
 import view.Count;
 import view.Login;
-
 
 /**
  * This class starts the visual part of the application and programs and manages
@@ -98,6 +101,8 @@ public class ControllerImplementation implements IController, ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == dSS.getAccept()[0]) {
             handleDataStorageSelection();
+        } else if (e.getSource() == login.getLogin()) {
+            handleLoginValidation();
         } else if (e.getSource() == menu.getInsert()) {
             handleInsertAction();
         } else if (insert != null && e.getSource() == insert.getInsert()) {
@@ -118,29 +123,34 @@ public class ControllerImplementation implements IController, ActionListener {
             handleUpdatePerson();
         } else if (e.getSource() == menu.getReadAll()) {
             handleReadAll();
-        } else if (readAll != null && e.getSource() == readAll.getExportToCsv()){
+        } else if (readAll != null && e.getSource() == readAll.getExportToCsv()) {
             handleExportToCsv();
-        }
-        else if (e.getSource() == menu.getDeleteAll()) {
+        } else if (e.getSource() == menu.getDeleteAll()) {
             handleDeleteAll();
-        }else if (e.getSource() == menu.getCount()) {
+        } else if (e.getSource() == menu.getCount()) {
             handleCount();
+        }
     }
-}
 
     private void handleDataStorageSelection() {
         String daoSelected = ((javax.swing.JCheckBox) (dSS.getAccept()[1])).getText();
         dSS.dispose();
         switch (daoSelected) {
-            case DataValidation.ARRAYLIST -> dao = new DAOArrayList();
-            case DataValidation.HASHMAP -> dao = new DAOHashMap();
-            case DataValidation.FILE -> setupFileStorage();
-            case DataValidation.FILE_SERIALIZATION -> setupFileSerialization();
-            case DataValidation.SQL_DATABASE -> setupSQLDatabase();
-            case DataValidation.JPA_DATABASE -> setupJPADatabase();
+            case DataValidation.ARRAYLIST ->
+                dao = new DAOArrayList();
+            case DataValidation.HASHMAP ->
+                dao = new DAOHashMap();
+            case DataValidation.FILE ->
+                setupFileStorage();
+            case DataValidation.FILE_SERIALIZATION ->
+                setupFileSerialization();
+            case DataValidation.SQL_DATABASE ->
+                setupSQLDatabase();
+            case DataValidation.JPA_DATABASE ->
+                setupJPADatabase();
         }
-        setupLogin();
-        
+        setupLoginSQL();
+
     }
 
     private void setupFileStorage() {
@@ -222,10 +232,99 @@ public class ControllerImplementation implements IController, ActionListener {
         menu.getDeleteAll().addActionListener(this);
         menu.getCount().addActionListener(this);
     }
+
+    private void insertUserToDatabase(User user){
+        try {
+            Connection conn = DriverManager.getConnection(Routes.LOGIN.getDbServerAddress() + Routes.LOGIN.getDbServerComOpt(),
+                    Routes.LOGIN.getDbServerUser(), Routes.LOGIN.getDbServerPassword());
+            if (conn != null){
+                PasswordHasher phash = new PasswordHasher();
+                String hashedPassword = phash.hashPassword(user.getPassword());
+                try{
+                    String sql = "INSERT INTO " + Routes.LOGIN.getDbServerDB() + "." + Routes.LOGIN.getDbServerTABLE()
+                        + " (username, password)"
+                        + " VALUES (?, ?)";
+                    PreparedStatement pstmt = conn.prepareStatement(sql);
+                    pstmt.setString(1, user.getUserName());
+                    pstmt.setString(2, hashedPassword);
+                    pstmt.executeUpdate();
+                    pstmt.close();
+                    conn.close();
+                } catch (SQLException e){
+                    System.out.println("User already exists");
+                }
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error at inserting the users. Closing application.", "LOGIN_DDBB - People v1.1.0", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }
+    }
     
-    private void setupLogin() {
+    private void setupLoginSQL() {
+        try {
+            Connection conn = DriverManager.getConnection(Routes.LOGIN.getDbServerAddress() + Routes.LOGIN.getDbServerComOpt(),
+                    Routes.LOGIN.getDbServerUser(), Routes.LOGIN.getDbServerPassword());
+            if (conn != null) {
+                Statement stmt = conn.createStatement();
+                stmt.executeUpdate("create database if not exists " + Routes.LOGIN.getDbServerDB() + ";");
+                stmt.executeUpdate("create table if not exists " + Routes.LOGIN.getDbServerDB() + "." + Routes.LOGIN.getDbServerTABLE() + "("
+                        + "username varchar(50) primary key not null, "
+                        + "password varchar(400) not null"
+                        + ");");
+                stmt.close();
+                conn.close();
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(dSS, "SQL-DDBB structure not created for login. Closing application.", "SQL_DDBB - People v1.1.0", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }
+        insertUserToDatabase(new User("user", "user".toCharArray()));
+        insertUserToDatabase(new User("admin", "admin".toCharArray()));
+        
+        handleLoginAction();
+    }
+
+    private void handleLoginAction() {
         login = new Login();
+        login.getLogin().addActionListener(this);
         login.setVisible(true);
+    }
+
+    private void handleLoginValidation() {
+        PasswordHasher pswHasher = new PasswordHasher();
+        String userName = login.getUserName().getText();
+        char[] cPassw = login.getPassword().getPassword();
+        try {
+            Connection conn = DriverManager.getConnection(Routes.LOGIN.getDbServerAddress() + Routes.LOGIN.getDbServerComOpt(),
+                    Routes.LOGIN.getDbServerUser(), Routes.LOGIN.getDbServerPassword());
+            if (conn != null) {
+                String sql = "SELECT * FROM " + Routes.LOGIN.getDbServerDB() + "." + Routes.LOGIN.getDbServerTABLE() + " WHERE username = ?";
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, userName);
+                String passwRs = "";
+                    ResultSet rs = pstmt.executeQuery();
+                    if (rs.next()) {
+                        passwRs = rs.getString("password");
+                    }
+                    if (passwRs.equals("")){
+                        JOptionPane.showMessageDialog(null, "Incorrect username or password", "Login - People v1.1.0", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                pstmt.close();
+                conn.close();
+                if (pswHasher.checkPassword(cPassw, passwRs)) {
+                    login.setVisible(false);
+                    setupMenu();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Incorrect user or password.", "Login - People v1.1.0", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "SQL-DDBB structure not created for login. Closing application.", "SQL_DDBB - People v1.1.0", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }
     }
 
     private void handleInsertAction() {
@@ -286,22 +385,22 @@ public class ControllerImplementation implements IController, ActionListener {
         Object[] options = {"Yes", "No"};
         //int answer = JOptionPane.showConfirmDialog(menu, "Are you sure to delete all people registered?", "Delete All - People v1.1.0", 0, 0);
         int answer = JOptionPane.showOptionDialog(
-        menu,
-        "Are you sure you want to delete this person?", 
-        "Delete Person - People v1.1.0",
-        JOptionPane.YES_NO_OPTION,
-        JOptionPane.WARNING_MESSAGE,
-        null,
-        options,
-        options[1] // Default selection is "No"
-    );
+                menu,
+                "Are you sure you want to delete this person?",
+                "Delete Person - People v1.1.0",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE,
+                null,
+                options,
+                options[1] // Default selection is "No"
+        );
 
         if (answer == 0) {
             if (delete != null) {
-            Person p = new Person(delete.getNif().getText());
-            delete(p);
-            delete.getReset().doClick();
-        }
+                Person p = new Person(delete.getNif().getText());
+                delete(p);
+                delete.getReset().doClick();
+            }
             JOptionPane.showMessageDialog(menu, "Person deleted successfully!!", "Delete Person - People v1.1.0", JOptionPane.INFORMATION_MESSAGE);
         }
     }
@@ -384,31 +483,31 @@ public class ControllerImplementation implements IController, ActionListener {
         }
     }
 
-    public void handleExportToCsv(){
+    public void handleExportToCsv() {
         exportToCsv();
-        JOptionPane.showMessageDialog(menu, "All persons have been exported to "+ FileManagement.DEFAULT_CSV_PATH +" successfully!", "Export to Csv - People v1.1.0", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(menu, "All persons have been exported to " + FileManagement.DEFAULT_CSV_PATH + " successfully!", "Export to Csv - People v1.1.0", JOptionPane.INFORMATION_MESSAGE);
     }
-    
+
     public void handleDeleteAll() {
         Object[] options = {"Yes", "No"};
         //int answer = JOptionPane.showConfirmDialog(menu, "Are you sure to delete all people registered?", "Delete All - People v1.1.0", 0, 0);
         int answer = JOptionPane.showOptionDialog(
-        menu,
-        "Are you sure you want to delete all registered people?", 
-        "Delete All - People v1.1.0",
-        JOptionPane.YES_NO_OPTION,
-        JOptionPane.WARNING_MESSAGE,
-        null,
-        options,
-        options[1] // Default selection is "No"
-    );
+                menu,
+                "Are you sure you want to delete all registered people?",
+                "Delete All - People v1.1.0",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE,
+                null,
+                options,
+                options[1] // Default selection is "No"
+        );
 
         if (answer == 0) {
             deleteAll();
             JOptionPane.showMessageDialog(menu, "All persons have been deleted successfully!", "Delete All - People v1.1.0", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    
+
     public void handleCount() {
         int cont = 0;
         cont = count();
@@ -421,7 +520,7 @@ public class ControllerImplementation implements IController, ActionListener {
             count.setVisible(true);
         }
     }
-    
+
     /**
      * This function inserts the Person object with the requested NIF, if it
      * doesn't exist. If there is any access problem with the storage device,
@@ -557,7 +656,7 @@ public class ControllerImplementation implements IController, ActionListener {
         }
         return people;
     }
-    
+
     /**
      * This function returns the people registered. If there is any access
      * problem with the storage device, the program stops.
@@ -576,6 +675,7 @@ public class ControllerImplementation implements IController, ActionListener {
             }
         }
     }
+
     /**
      * This function deletes all the people registered. If there is any access
      * problem with the storage device, the program stops.
@@ -593,6 +693,7 @@ public class ControllerImplementation implements IController, ActionListener {
             }
         }
     }
+
     @Override
     public int count() {
         int cont = 0;
