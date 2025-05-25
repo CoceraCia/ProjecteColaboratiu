@@ -186,6 +186,20 @@ public class ControllerImplementation implements IController, ActionListener {
     }
 
     private void setupSQLDatabase() {
+        File folderPath = new File(Routes.DB.getFolderPath());
+        File folderPhotos = new File(Routes.DB.getFolderPhotos());
+        File dataFile = new File(Routes.DB.getDataFile());
+        folderPath.mkdir();
+        folderPhotos.mkdir();
+        if (!dataFile.exists()) {
+            try {
+                dataFile.createNewFile();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(dSS, "File structure not created. Closing application.", "File - People v1.1.0", JOptionPane.ERROR_MESSAGE);
+                System.exit(0);
+            }
+        }
+        dao = new DAOFile();
         try {
             Connection conn = DriverManager.getConnection(Routes.DB.getDbServerAddress() + Routes.DB.getDbServerComOpt(),
                     Routes.DB.getDbServerUser(), Routes.DB.getDbServerPassword());
@@ -196,6 +210,8 @@ public class ControllerImplementation implements IController, ActionListener {
                         + "nif varchar(9) primary key not null, "
                         + "name varchar(50), "
                         + "postalCode varchar(50), "
+                        + "phoneNumber varchar(50),"
+                        + "email varchar(255), "
                         + "dateOfBirth DATE, "
                         + "photo varchar(200) );");
                 stmt.close();
@@ -334,7 +350,7 @@ public class ControllerImplementation implements IController, ActionListener {
     }
 
     private void handleInsertPerson() {
-        Person p = new Person(insert.getNam().getText(), insert.getNif().getText(), insert.getPostalCode().getText());
+        Person p = new Person(insert.getNam().getText(), insert.getNif().getText(), insert.getPostalCode().getText(), insert.getPhoneNumber().getText(), insert.getEmail().getText());
         if (insert.getDateOfBirth().getModel().getValue() != null) {
             p.setDateOfBirth(((GregorianCalendar) insert.getDateOfBirth().getModel().getValue()).getTime());
         }
@@ -343,7 +359,6 @@ public class ControllerImplementation implements IController, ActionListener {
         }
         insert(p);
         insert.getReset().doClick();
-        JOptionPane.showMessageDialog(null, "Person inserted successfully!");
 
     }
 
@@ -358,6 +373,9 @@ public class ControllerImplementation implements IController, ActionListener {
         Person pNew = read(p);
         if (pNew != null) {
             read.getNam().setText(pNew.getName());
+            read.getEmail().setText(pNew.getEmail());
+            read.getPhoneNumber().setText(pNew.getPhoneNumber());
+            read.getPostalCode().setText(pNew.getPostalCode());
             if (pNew.getDateOfBirth() != null) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTime(pNew.getDateOfBirth());
@@ -397,11 +415,10 @@ public class ControllerImplementation implements IController, ActionListener {
 
         if (answer == 0) {
             if (delete != null) {
-                Person p = new Person(delete.getNif().getText());
-                delete(p);
-                delete.getReset().doClick();
+            Person p = new Person(delete.getNif().getText());
+            delete(p);
+            delete.getReset().doClick();
             }
-            JOptionPane.showMessageDialog(menu, "Person deleted successfully!!", "Delete Person - People v1.1.0", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -418,10 +435,16 @@ public class ControllerImplementation implements IController, ActionListener {
             Person pNew = read(p);
             if (pNew != null) {
                 update.getNam().setEnabled(true);
+                update.getEmail().setEnabled(true);
+                update.getPhoneNumber().setEnabled(true);
+                update.getPostalCode().setEnabled(true);
                 update.getDateOfBirth().setEnabled(true);
                 update.getPhoto().setEnabled(true);
                 update.getUpdate().setEnabled(true);
                 update.getNam().setText(pNew.getName());
+                update.getEmail().setText(pNew.getEmail());
+                update.getPhoneNumber().setText(pNew.getPhoneNumber());
+                update.getPostalCode().setText(pNew.getPostalCode());
                 if (pNew.getDateOfBirth() != null) {
                     Calendar calendar = Calendar.getInstance();
                     calendar.setTime(pNew.getDateOfBirth());
@@ -442,7 +465,7 @@ public class ControllerImplementation implements IController, ActionListener {
 
     public void handleUpdatePerson() {
         if (update != null) {
-            Person p = new Person(update.getNam().getText(), update.getNif().getText(), update.getPostalCode().getText());
+            Person p = new Person(update.getNam().getText(), update.getNif().getText(), update.getPostalCode().getText(), update.getPhoneNumber().getText(), update.getEmail().getText() );
             if ((update.getDateOfBirth().getModel().getValue()) != null) {
                 p.setDateOfBirth(((GregorianCalendar) update.getDateOfBirth().getModel().getValue()).getTime());
             }
@@ -451,7 +474,6 @@ public class ControllerImplementation implements IController, ActionListener {
             }
             update(p);
             update.getReset().doClick();
-            JOptionPane.showMessageDialog(null, "Person updated successfully!");
         }
     }
 
@@ -468,24 +490,32 @@ public class ControllerImplementation implements IController, ActionListener {
                 model.setValueAt(s.get(i).getNif(), i, 0);
                 model.setValueAt(s.get(i).getName(), i, 1);
                 model.setValueAt(s.get(i).getPostalCode(), i, 2);
+                model.setValueAt(s.get(i).getPhoneNumber(), i, 3);
+                model.setValueAt(s.get(i).getEmail(), i, 4);
                 if (s.get(i).getDateOfBirth() != null) {
-                    model.setValueAt(s.get(i).getDateOfBirth().toString(), i, 3);
+                    model.setValueAt(s.get(i).getDateOfBirth().toString(), i, 5);
                 } else {
-                    model.setValueAt("", i, 3);
+                    model.setValueAt("", i, 5);
                 }
                 if (s.get(i).getPhoto() != null) {
-                    model.setValueAt("yes", i, 4);
+                    model.setValueAt("yes", i, 6);
                 } else {
-                    model.setValueAt("no", i, 4);
+                    model.setValueAt("no", i, 6);
                 }
             }
             readAll.setVisible(true);
         }
     }
 
-    public void handleExportToCsv() {
-        exportToCsv();
-        JOptionPane.showMessageDialog(menu, "All persons have been exported to " + FileManagement.DEFAULT_CSV_PATH + " successfully!", "Export to Csv - People v1.1.0", JOptionPane.INFORMATION_MESSAGE);
+
+    public void handleExportToCsv(){
+        try{
+            exportToCsv();
+            JOptionPane.showMessageDialog(menu, "All persons have been exported to "+ FileManagement.DEFAULT_CSV_PATH +" successfully!", "Export to Csv - People v1.1.0", JOptionPane.INFORMATION_MESSAGE);
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(menu, "Persons couldn't be exported to "+ FileManagement.DEFAULT_CSV_PATH, "Export to Csv - People v1.1.0", JOptionPane.WARNING_MESSAGE);
+            e.printStackTrace();
+        }
     }
 
     public void handleDeleteAll() {
@@ -504,7 +534,6 @@ public class ControllerImplementation implements IController, ActionListener {
 
         if (answer == 0) {
             deleteAll();
-            JOptionPane.showMessageDialog(menu, "All persons have been deleted successfully!", "Delete All - People v1.1.0", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -533,6 +562,7 @@ public class ControllerImplementation implements IController, ActionListener {
         try {
             if (dao.read(p) == null) {
                 dao.insert(p);
+                 JOptionPane.showMessageDialog(menu, "Successfully inserted.", "Insert - People v1.1.0", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 throw new PersonException(p.getNif() + " is registered and can not "
                         + "be INSERTED.");
@@ -563,6 +593,7 @@ public class ControllerImplementation implements IController, ActionListener {
     public void update(Person p) {
         try {
             dao.update(p);
+            JOptionPane.showMessageDialog(update, p.getNif() + " updated successfully.", update.getTitle(), JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception ex) {
             //Exceptions generated by file read/write access. If something goes 
             // wrong the application closes.
@@ -587,6 +618,7 @@ public class ControllerImplementation implements IController, ActionListener {
         try {
             if (dao.read(p) != null) {
                 dao.delete(p);
+                JOptionPane.showMessageDialog(menu, "Person deleted successfully!!", "Delete Person - People v1.1.0", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 throw new PersonException(p.getNif() + " is not registered and can not "
                         + "be DELETED");
@@ -684,6 +716,7 @@ public class ControllerImplementation implements IController, ActionListener {
     public void deleteAll() {
         try {
             dao.deleteAll();
+            JOptionPane.showMessageDialog(menu, "All persons have been deleted successfully!", "Delete All - People v1.1.0", JOptionPane.INFORMATION_MESSAGE);
         } catch (Exception ex) {
             if (ex instanceof FileNotFoundException || ex instanceof IOException
                     || ex instanceof ParseException || ex instanceof ClassNotFoundException

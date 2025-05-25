@@ -1,10 +1,7 @@
 package view;
 
 import java.awt.Color;
-import static utils.DataValidation.calculateNifLetter;
-import static utils.DataValidation.isLetter;
-import static utils.DataValidation.isNumber;
-import static utils.DataValidation.validPostalCode;
+import static utils.DataValidation.*;
 
 import java.awt.dnd.DropTarget;
 import java.awt.event.FocusAdapter;
@@ -21,6 +18,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.jdatepicker.DateModel;
 import org.jdatepicker.JDatePicker;
+import utils.DataValidation;
+import static utils.DataValidation.validPhoneNumber;
+import static utils.DataValidation.validPostalCode;
 
 /**
  * Interface used to updated a person. It is mandatory to enter the NIF.
@@ -37,6 +37,8 @@ public class Update extends javax.swing.JDialog {
         DropTarget dropTarget = new DropTarget(photo, d);
         read.setVisible(false);
         update.setEnabled(false);
+        
+        
         
         nif.addFocusListener(new FocusAdapter() {
             public void focusGained(FocusEvent e) {
@@ -116,6 +118,16 @@ public class Update extends javax.swing.JDialog {
     public JTextField getPostalCode(){
         return postalCode;
     }
+
+    public JTextField getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public JTextField getEmail() {
+        return email;
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -125,12 +137,6 @@ public class Update extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel6 = new javax.swing.JLabel();
-        nif1 = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        nif2 = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        nif3 = new javax.swing.JTextField();
         update = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         nif = new javax.swing.JTextField();
@@ -144,95 +150,11 @@ public class Update extends javax.swing.JDialog {
         read = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        nif4 = new javax.swing.JTextField();
+        email = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        nif5 = new javax.swing.JTextField();
+        phoneNumber = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         postalCode = new javax.swing.JTextField();
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel6.setText("Email");
-        jLabel6.setMaximumSize(new java.awt.Dimension(100, 22));
-        jLabel6.setMinimumSize(new java.awt.Dimension(100, 22));
-        jLabel6.setPreferredSize(new java.awt.Dimension(100, 22));
-
-        nif1.setToolTipText("");
-        nif1.setMaximumSize(new java.awt.Dimension(400, 22));
-        nif1.setMinimumSize(new java.awt.Dimension(400, 22));
-        nif1.setName(""); // NOI18N
-        nif1.setPreferredSize(new java.awt.Dimension(400, 22));
-        nif1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nif1ActionPerformed(evt);
-            }
-        });
-        nif1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                nif1KeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                nif1KeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                nif1KeyTyped(evt);
-            }
-        });
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel7.setText("Phone Number");
-        jLabel7.setMaximumSize(new java.awt.Dimension(100, 22));
-        jLabel7.setMinimumSize(new java.awt.Dimension(100, 22));
-        jLabel7.setPreferredSize(new java.awt.Dimension(100, 22));
-
-        nif2.setToolTipText("");
-        nif2.setMaximumSize(new java.awt.Dimension(400, 22));
-        nif2.setMinimumSize(new java.awt.Dimension(400, 22));
-        nif2.setName(""); // NOI18N
-        nif2.setPreferredSize(new java.awt.Dimension(400, 22));
-        nif2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nif2ActionPerformed(evt);
-            }
-        });
-        nif2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                nif2KeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                nif2KeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                nif2KeyTyped(evt);
-            }
-        });
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel9.setText("Postal Code");
-        jLabel9.setMaximumSize(new java.awt.Dimension(100, 22));
-        jLabel9.setMinimumSize(new java.awt.Dimension(100, 22));
-        jLabel9.setPreferredSize(new java.awt.Dimension(100, 22));
-
-        nif3.setToolTipText("");
-        nif3.setMaximumSize(new java.awt.Dimension(400, 22));
-        nif3.setMinimumSize(new java.awt.Dimension(400, 22));
-        nif3.setName(""); // NOI18N
-        nif3.setPreferredSize(new java.awt.Dimension(400, 22));
-        nif3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nif3ActionPerformed(evt);
-            }
-        });
-        nif3.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                nif3KeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                nif3KeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                nif3KeyTyped(evt);
-            }
-        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Update - People v1.1.0");
@@ -290,11 +212,11 @@ public class Update extends javax.swing.JDialog {
         name.setMinimumSize(new java.awt.Dimension(400, 22));
         name.setPreferredSize(new java.awt.Dimension(400, 22));
         name.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                nameKeyPressed(evt);
-            }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 nameKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nameKeyTyped(evt);
             }
         });
 
@@ -335,25 +257,18 @@ public class Update extends javax.swing.JDialog {
         jLabel10.setMinimumSize(new java.awt.Dimension(100, 22));
         jLabel10.setPreferredSize(new java.awt.Dimension(100, 22));
 
-        nif4.setToolTipText("");
-        nif4.setMaximumSize(new java.awt.Dimension(400, 22));
-        nif4.setMinimumSize(new java.awt.Dimension(400, 22));
-        nif4.setName(""); // NOI18N
-        nif4.setPreferredSize(new java.awt.Dimension(400, 22));
-        nif4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nif4ActionPerformed(evt);
-            }
-        });
-        nif4.addKeyListener(new java.awt.event.KeyAdapter() {
+        email.setToolTipText("");
+        email.setEnabled(false);
+        email.setMaximumSize(new java.awt.Dimension(400, 22));
+        email.setMinimumSize(new java.awt.Dimension(400, 22));
+        email.setName(""); // NOI18N
+        email.setPreferredSize(new java.awt.Dimension(400, 22));
+        email.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                nif4KeyPressed(evt);
+                emailKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                nif4KeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                nif4KeyTyped(evt);
+                emailKeyReleased(evt);
             }
         });
 
@@ -363,25 +278,18 @@ public class Update extends javax.swing.JDialog {
         jLabel11.setMinimumSize(new java.awt.Dimension(100, 22));
         jLabel11.setPreferredSize(new java.awt.Dimension(100, 22));
 
-        nif5.setToolTipText("");
-        nif5.setMaximumSize(new java.awt.Dimension(400, 22));
-        nif5.setMinimumSize(new java.awt.Dimension(400, 22));
-        nif5.setName(""); // NOI18N
-        nif5.setPreferredSize(new java.awt.Dimension(400, 22));
-        nif5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nif5ActionPerformed(evt);
-            }
-        });
-        nif5.addKeyListener(new java.awt.event.KeyAdapter() {
+        phoneNumber.setToolTipText("");
+        phoneNumber.setEnabled(false);
+        phoneNumber.setMaximumSize(new java.awt.Dimension(400, 22));
+        phoneNumber.setMinimumSize(new java.awt.Dimension(400, 22));
+        phoneNumber.setName(""); // NOI18N
+        phoneNumber.setPreferredSize(new java.awt.Dimension(400, 22));
+        phoneNumber.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                nif5KeyPressed(evt);
+                phoneNumberKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                nif5KeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                nif5KeyTyped(evt);
+                phoneNumberKeyReleased(evt);
             }
         });
 
@@ -392,24 +300,17 @@ public class Update extends javax.swing.JDialog {
         jLabel12.setPreferredSize(new java.awt.Dimension(100, 22));
 
         postalCode.setToolTipText("");
+        postalCode.setEnabled(false);
         postalCode.setMaximumSize(new java.awt.Dimension(400, 22));
         postalCode.setMinimumSize(new java.awt.Dimension(400, 22));
         postalCode.setName(""); // NOI18N
         postalCode.setPreferredSize(new java.awt.Dimension(400, 22));
-        postalCode.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                postalCodeActionPerformed(evt);
-            }
-        });
         postalCode.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 postalCodeKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 postalCodeKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                postalCodeKeyTyped(evt);
             }
         });
 
@@ -438,14 +339,14 @@ public class Update extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(33, 33, 33)
-                                .addComponent(nif4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(email, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(33, 33, 33)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nif5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(phoneNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(postalCode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -484,11 +385,11 @@ public class Update extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(nif4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nif5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(phoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -518,6 +419,15 @@ public class Update extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    private void showUpdate() {
+        if (!name.getText().isEmpty() && !nif.isEditable() && validEmail(email.getText()) && validPostalCode(postalCode.getText()) && validPhoneNumber(phoneNumber.getText())) {
+            update.setEnabled(true);
+        } else {
+            update.setEnabled(false);
+        }
+    }
+    
     private void nifKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nifKeyPressed
         if (nif.getText().length() == 8) {
             evt.consume();
@@ -546,6 +456,12 @@ public class Update extends javax.swing.JDialog {
         nif.setEditable(true);
         nif.setText("");
         name.setText("");
+        postalCode.setEditable(false);
+        postalCode.setText("");
+        phoneNumber.setEditable(false);
+        phoneNumber.setText("");
+        email.setEditable(false);
+        email.setText("");
         dateOfBirth.getModel().setValue(null);
         photo.setIcon(null); 
         name.setEnabled(false);
@@ -565,18 +481,6 @@ public class Update extends javax.swing.JDialog {
         update.setEnabled(false);
     }//GEN-LAST:event_resetActionPerformed
 
-    private void nameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyPressed
-        if (!isLetter(evt.getKeyChar()) && evt.getKeyCode() != KeyEvent.VK_UP
-                && evt.getKeyCode() != KeyEvent.VK_DOWN && evt.getKeyCode() != KeyEvent.VK_LEFT
-                && evt.getKeyCode() != KeyEvent.VK_RIGHT && evt.getKeyCode() != KeyEvent.VK_SHIFT
-                && evt.getKeyCode() != KeyEvent.VK_BACK_SPACE && evt.getKeyCode() != KeyEvent.VK_DELETE) {
-            JOptionPane.showMessageDialog(this, "Type only uppercase or lowercase letters, hyphens, and whitespace.", "UPdate - People v1.0", JOptionPane.WARNING_MESSAGE);
-            int posDelete = name.getText().indexOf(evt.getKeyChar());
-            StringBuilder newName = new StringBuilder(name.getText());
-            name.setText(newName.deleteCharAt(posDelete).toString());
-        }        // TODO add your handling code here:
-    }//GEN-LAST:event_nameKeyPressed
-
     private void nameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyReleased
         if (name.getText().length() == 0) {
             update.setEnabled(false);
@@ -589,113 +493,88 @@ public class Update extends javax.swing.JDialog {
         photo.setIcon(null);
     }//GEN-LAST:event_photoMouseClicked
 
-    private void nif1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nif1ActionPerformed
+    private void emailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nif1ActionPerformed
+        if (email.getText().length() == 254) { // Maximum length of an email
+            evt.consume();
+            email.setEditable(false);
+        }
+        showUpdate();
+    }//GEN-LAST:event_emailKeyPressed
 
-    private void nif1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif1KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nif1KeyPressed
+    private void emailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyReleased
+         // TODO add your handling code here:
+        if (email.getText().length() == 254 || email.getText().length() == 254) {  //Maximum length of an email
+            if (!validEmail(email.getText())) {
+                JOptionPane.showMessageDialog(this, "Incorrect email", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+                email.setText("");
+                showUpdate();
+                email.setEditable(true);
+                return;
+            }
+            email.setEditable(false);
+        }
+        showUpdate();
+    }//GEN-LAST:event_emailKeyReleased
 
-    private void nif1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif1KeyReleased
+    private void phoneNumberKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneNumberKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nif1KeyReleased
+        if (phoneNumber.getText().length() == 29) {
+            evt.consume();
+            phoneNumber.setEditable(false);
+        }
+        showUpdate();
+    }//GEN-LAST:event_phoneNumberKeyPressed
 
-    private void nif1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif1KeyTyped
+    private void phoneNumberKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneNumberKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_nif1KeyTyped
-
-    private void nif2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nif2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nif2ActionPerformed
-
-    private void nif2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif2KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nif2KeyPressed
-
-    private void nif2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif2KeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nif2KeyReleased
-
-    private void nif2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif2KeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nif2KeyTyped
-
-    private void nif3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nif3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nif3ActionPerformed
-
-    private void nif3KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif3KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nif3KeyPressed
-
-    private void nif3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif3KeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nif3KeyReleased
-
-    private void nif3KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif3KeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nif3KeyTyped
-
-    private void nif4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nif4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nif4ActionPerformed
-
-    private void nif4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif4KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nif4KeyPressed
-
-    private void nif4KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif4KeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nif4KeyReleased
-
-    private void nif4KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif4KeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nif4KeyTyped
-
-    private void nif5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nif5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nif5ActionPerformed
-
-    private void nif5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif5KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nif5KeyPressed
-
-    private void nif5KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif5KeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nif5KeyReleased
-
-    private void nif5KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif5KeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nif5KeyTyped
-
-    private void postalCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_postalCodeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_postalCodeActionPerformed
+        if (phoneNumber.getText().length() == 29 || phoneNumber.getText().length() == 29) {
+            if (!validPhoneNumber(phoneNumber.getText())) {
+                JOptionPane.showMessageDialog(this, "Incorrect Phone Number", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+                phoneNumber.setText("");
+                showUpdate();
+                phoneNumber.setEditable(true);
+                return;
+            }
+            phoneNumber.setEditable(false);
+        }
+        showUpdate();
+    }//GEN-LAST:event_phoneNumberKeyReleased
 
     private void postalCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_postalCodeKeyPressed
         // TODO add your handling code here:
+        if (postalCode.getText().length() == 10) {
+            evt.consume();
+            postalCode.setEditable(false);
+        }
+        showUpdate();
     }//GEN-LAST:event_postalCodeKeyPressed
 
     private void postalCodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_postalCodeKeyReleased
-        // TODO add your handling code here:
-        if (postalCode.getText().length() == 5 && postalCode.getText().length() == 11){
+        if (postalCode.getText().length() == 10 || postalCode.getText().length() == 10) {
             if (!validPostalCode(postalCode.getText())) {
                 JOptionPane.showMessageDialog(this, "Incorrect Postal Code", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+                postalCode.setText("");
+                showUpdate();
+                postalCode.setEditable(true);
+                return;
             }
+            postalCode.setEditable(false);
         }
-        if (postalCode.getText().length() == 5 && !postalCode.getText().contains("-") && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_DELETE){
-            postalCode.setText(postalCode.getText() + "-");
-        }
-        if (isLetter(evt.getKeyChar())){
-            evt.consume();
-        }
+        showUpdate();
     }//GEN-LAST:event_postalCodeKeyReleased
 
-    private void postalCodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_postalCodeKeyTyped
+    private void nameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nameKeyTyped
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_postalCodeKeyTyped
+         if (!isLetter(evt.getKeyChar()) && evt.getKeyChar() != KeyEvent.VK_BACK_SPACE && evt.getKeyChar() != KeyEvent.VK_DELETE) {
+            JOptionPane.showMessageDialog(this, "Type only uppercase or lowercase letters, hyphens, and whitespace.", "UPdate - People v1.0", JOptionPane.WARNING_MESSAGE);
+            int posDelete = name.getText().indexOf(evt.getKeyChar());
+            StringBuilder newName = new StringBuilder(name.getText());
+            name.setText(newName.deleteCharAt(posDelete).toString());
+        }  else if (isLetter(evt.getKeyChar()) || evt.getKeyChar() == KeyEvent.VK_BACK_SPACE || evt.getKeyChar() == KeyEvent.VK_DELETE) {
+            
+        }
+    }//GEN-LAST:event_nameKeyTyped
 
     /**
      * @param args the command line arguments
@@ -703,6 +582,7 @@ public class Update extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jdatepicker.JDatePicker dateOfBirth;
+    private javax.swing.JTextField email;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -710,17 +590,10 @@ public class Update extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField name;
     private javax.swing.JTextField nif;
-    private javax.swing.JTextField nif1;
-    private javax.swing.JTextField nif2;
-    private javax.swing.JTextField nif3;
-    private javax.swing.JTextField nif4;
-    private javax.swing.JTextField nif5;
+    private javax.swing.JTextField phoneNumber;
     private javax.swing.JLabel photo;
     private javax.swing.JTextField postalCode;
     private javax.swing.JButton read;

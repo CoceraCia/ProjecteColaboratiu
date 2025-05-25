@@ -1,10 +1,7 @@
 package view;
 
 import java.awt.Color;
-import static utils.DataValidation.calculateNifLetter;
-import static utils.DataValidation.isLetter;
-import static utils.DataValidation.isNumber;
-import static utils.DataValidation.validPostalCode;
+import static utils.DataValidation.*;
 
 import java.awt.dnd.DropTarget;
 import java.awt.event.FocusAdapter;
@@ -23,8 +20,9 @@ import org.jdatepicker.DateModel;
 import org.jdatepicker.JDatePicker;
 
 /**
- * Interface used to register a person. It is mandatory to enter at least the 
+ * Interface used to register a person. It is mandatory to enter at least the
  * NIF and the name.
+ *
  * @author Francesc Perez
  * @version 1.1.0
  */
@@ -36,7 +34,7 @@ public class Insert extends javax.swing.JDialog {
         DropPhotoListener d = new DropPhotoListener(photo, this);
         DropTarget dropTarget = new DropTarget(photo, d);
         insert.setEnabled(false);
-        
+
         nif.addFocusListener(new FocusAdapter() {
             public void focusGained(FocusEvent e) {
                 if (nif.getText().equals("Enter NIF number, letter is calculated (e.g., 12345678)")) {
@@ -44,6 +42,7 @@ public class Insert extends javax.swing.JDialog {
                     nif.setForeground(Color.BLACK);
                 }
             }
+
             public void focusLost(FocusEvent e) {
                 if (nif.getText().isEmpty()) {
                     nif.setForeground(Color.GRAY);
@@ -58,6 +57,7 @@ public class Insert extends javax.swing.JDialog {
                     name.setForeground(Color.BLACK);
                 }
             }
+
             public void focusLost(FocusEvent e) {
                 if (name.getText().isEmpty()) {
                     name.setForeground(Color.GRAY);
@@ -69,20 +69,21 @@ public class Insert extends javax.swing.JDialog {
         addFocusName(name);
         addFocusNif(nif);
     }
-    
+
     public void addFocusNif(JTextField nif) {
         if (!nif.hasFocus() && nif.getText().isEmpty()) {
             nif.setText("Enter NIF number, letter is calculated (e.g., 12345678)");
             nif.setForeground(Color.GRAY);
         }
     }
+
     public void addFocusName(JTextField name) {
         if (!name.hasFocus() && nif.getText().isEmpty()) {
             name.setText("Enter full name");
             name.setForeground(Color.GRAY);
         }
     }
-    
+
     public JButton getReset() {
         return reset;
     }
@@ -106,10 +107,20 @@ public class Insert extends javax.swing.JDialog {
     public JLabel getPhoto() {
         return photo;
     }
-    
-    public JTextField getPostalCode(){
+
+    public JTextField getPostalCode() {
         return postalCode;
     }
+
+    public JTextField getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public JTextField getEmail() {
+        return email;
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -132,9 +143,9 @@ public class Insert extends javax.swing.JDialog {
         dateOfBirth = new org.jdatepicker.JDatePicker();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        nif1 = new javax.swing.JTextField();
+        email = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        nif2 = new javax.swing.JTextField();
+        phoneNumber = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         postalCode = new javax.swing.JTextField();
 
@@ -147,11 +158,6 @@ public class Insert extends javax.swing.JDialog {
         insert.setMaximumSize(new java.awt.Dimension(187, 33));
         insert.setMinimumSize(new java.awt.Dimension(187, 33));
         insert.setPreferredSize(new java.awt.Dimension(187, 33));
-        insert.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                insertActionPerformed(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setText("Name");
@@ -208,11 +214,6 @@ public class Insert extends javax.swing.JDialog {
         nif.setMinimumSize(new java.awt.Dimension(400, 22));
         nif.setName(""); // NOI18N
         nif.setPreferredSize(new java.awt.Dimension(400, 22));
-        nif.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nifActionPerformed(evt);
-            }
-        });
         nif.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 nifKeyPressed(evt);
@@ -249,25 +250,17 @@ public class Insert extends javax.swing.JDialog {
         jLabel6.setMinimumSize(new java.awt.Dimension(100, 22));
         jLabel6.setPreferredSize(new java.awt.Dimension(100, 22));
 
-        nif1.setToolTipText("");
-        nif1.setMaximumSize(new java.awt.Dimension(400, 22));
-        nif1.setMinimumSize(new java.awt.Dimension(400, 22));
-        nif1.setName(""); // NOI18N
-        nif1.setPreferredSize(new java.awt.Dimension(400, 22));
-        nif1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nif1ActionPerformed(evt);
-            }
-        });
-        nif1.addKeyListener(new java.awt.event.KeyAdapter() {
+        email.setToolTipText("");
+        email.setMaximumSize(new java.awt.Dimension(400, 22));
+        email.setMinimumSize(new java.awt.Dimension(400, 22));
+        email.setName(""); // NOI18N
+        email.setPreferredSize(new java.awt.Dimension(400, 22));
+        email.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                nif1KeyPressed(evt);
+                emailKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                nif1KeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                nif1KeyTyped(evt);
+                emailKeyReleased(evt);
             }
         });
 
@@ -277,25 +270,17 @@ public class Insert extends javax.swing.JDialog {
         jLabel7.setMinimumSize(new java.awt.Dimension(100, 22));
         jLabel7.setPreferredSize(new java.awt.Dimension(100, 22));
 
-        nif2.setToolTipText("");
-        nif2.setMaximumSize(new java.awt.Dimension(400, 22));
-        nif2.setMinimumSize(new java.awt.Dimension(400, 22));
-        nif2.setName(""); // NOI18N
-        nif2.setPreferredSize(new java.awt.Dimension(400, 22));
-        nif2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nif2ActionPerformed(evt);
-            }
-        });
-        nif2.addKeyListener(new java.awt.event.KeyAdapter() {
+        phoneNumber.setToolTipText("");
+        phoneNumber.setMaximumSize(new java.awt.Dimension(400, 22));
+        phoneNumber.setMinimumSize(new java.awt.Dimension(400, 22));
+        phoneNumber.setName(""); // NOI18N
+        phoneNumber.setPreferredSize(new java.awt.Dimension(400, 22));
+        phoneNumber.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                nif2KeyPressed(evt);
+                phoneNumberKeyPressed(evt);
             }
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                nif2KeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                nif2KeyTyped(evt);
+                phoneNumberKeyReleased(evt);
             }
         });
 
@@ -310,11 +295,6 @@ public class Insert extends javax.swing.JDialog {
         postalCode.setMinimumSize(new java.awt.Dimension(400, 22));
         postalCode.setName(""); // NOI18N
         postalCode.setPreferredSize(new java.awt.Dimension(400, 22));
-        postalCode.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                postalCodeActionPerformed(evt);
-            }
-        });
         postalCode.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 postalCodeKeyPressed(evt);
@@ -346,11 +326,11 @@ public class Insert extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(24, 24, 24)
-                                .addComponent(nif1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(24, 24, 24)
-                                .addComponent(nif2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(phoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(24, 24, 24)
@@ -392,11 +372,11 @@ public class Insert extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nif1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nif2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(phoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -423,7 +403,7 @@ public class Insert extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void showInsert() {
-        if (!name.getText().isEmpty() && !nif.isEditable() && validPostalCode(postalCode.getText())) {
+        if (!name.getText().isEmpty() && !nif.isEditable() && validEmail(email.getText()) && validPostalCode(postalCode.getText()) && validPhoneNumber(phoneNumber.getText())) {
             insert.setEnabled(true);
         } else {
             insert.setEnabled(false);
@@ -436,6 +416,10 @@ public class Insert extends javax.swing.JDialog {
         name.setText("");
         postalCode.setEditable(true);
         postalCode.setText("");
+        phoneNumber.setEditable(true);
+        phoneNumber.setText("");
+        email.setEditable(true);
+        email.setText("");
         photo.setIcon(null);
         //We reset the calendar date to the current date ...
         LocalDate dateLocate = LocalDate.now();
@@ -491,76 +475,82 @@ public class Insert extends javax.swing.JDialog {
             showInsert();
         }
     }//GEN-LAST:event_nifKeyPressed
-              
-    
-    private void nifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nifActionPerformed
-        
-    }//GEN-LAST:event_nifActionPerformed
 
-    private void insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertActionPerformed
-    }//GEN-LAST:event_insertActionPerformed
 
-    private void nif1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nif1ActionPerformed
+    private void emailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nif1ActionPerformed
+        if (email.getText().length() == 254) { // Maximum length of an email
+            evt.consume();
+            email.setEditable(false);
+        }
+        showInsert();
+    }//GEN-LAST:event_emailKeyPressed
 
-    private void nif1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif1KeyPressed
+    private void emailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_emailKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_nif1KeyPressed
+        if (email.getText().length() == 254 || email.getText().length() == 254) {  //Maximum length of an email
+            if (!validEmail(email.getText())) {
+                JOptionPane.showMessageDialog(this, "Incorrect email", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+                email.setText("");
+                showInsert();
+                email.setEditable(true);
+                return;
+            }
+            email.setEditable(false);
+        }
+        showInsert();
+    }//GEN-LAST:event_emailKeyReleased
 
-    private void nif1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif1KeyReleased
+    private void phoneNumberKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneNumberKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nif1KeyReleased
+        if (phoneNumber.getText().length() == 29) {
+            evt.consume();
+            phoneNumber.setEditable(false);
+        }
+        showInsert();
+    }//GEN-LAST:event_phoneNumberKeyPressed
 
-    private void nif1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif1KeyTyped
+    private void phoneNumberKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_phoneNumberKeyReleased
         // TODO add your handling code here:
-    }//GEN-LAST:event_nif1KeyTyped
-
-    private void nif2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nif2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nif2ActionPerformed
-
-    private void nif2KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif2KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nif2KeyPressed
-
-    private void nif2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif2KeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nif2KeyReleased
-
-    private void nif2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nif2KeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_nif2KeyTyped
-
-    private void postalCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_postalCodeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_postalCodeActionPerformed
+        if (phoneNumber.getText().length() == 29 || phoneNumber.getText().length() == 29) {
+            if (!validPhoneNumber(phoneNumber.getText())) {
+                JOptionPane.showMessageDialog(this, "Incorrect Phone Number", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+                phoneNumber.setText("");
+                showInsert();
+                phoneNumber.setEditable(true);
+                return;
+            }
+            phoneNumber.setEditable(false);
+        }
+        showInsert();
+    }//GEN-LAST:event_phoneNumberKeyReleased
 
     private void postalCodeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_postalCodeKeyPressed
         // TODO add your handling code here:
         if (postalCode.getText().length() == 10) {
             evt.consume();
             postalCode.setEditable(false);
-        } 
+        }
         showInsert();
     }//GEN-LAST:event_postalCodeKeyPressed
 
     private void postalCodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_postalCodeKeyReleased
-         if (postalCode.getText().length() == 10 || postalCode.getText().length() == 10) {
-             if(!validPostalCode(postalCode.getText())){
-                 JOptionPane.showMessageDialog(this, "Incorrect Postal Code", this.getTitle(), JOptionPane.ERROR_MESSAGE);
-                 postalCode.setText("");
-                 showInsert();
-                 postalCode.setEditable(true);
-                 return;
-             }
+        if (postalCode.getText().length() == 10 || postalCode.getText().length() == 10) {
+            if (!validPostalCode(postalCode.getText())) {
+                JOptionPane.showMessageDialog(this, "Incorrect Postal Code", this.getTitle(), JOptionPane.ERROR_MESSAGE);
+                postalCode.setText("");
+                showInsert();
+                postalCode.setEditable(true);
+                return;
+            }
             postalCode.setEditable(false);
         }
-         showInsert();
+        showInsert();
     }//GEN-LAST:event_postalCodeKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private org.jdatepicker.JDatePicker dateOfBirth;
+    private javax.swing.JTextField email;
     private javax.swing.JButton insert;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -572,8 +562,7 @@ public class Insert extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField name;
     private javax.swing.JTextField nif;
-    private javax.swing.JTextField nif1;
-    private javax.swing.JTextField nif2;
+    private javax.swing.JTextField phoneNumber;
     private javax.swing.JLabel photo;
     private javax.swing.JTextField postalCode;
     private javax.swing.JButton reset;
